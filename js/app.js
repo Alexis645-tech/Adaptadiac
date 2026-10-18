@@ -43,10 +43,16 @@ async function loadExternalCurriculumDatabase() {
       const externalDcds = await res.json();
       if (Array.isArray(externalDcds) && externalDcds.length > 0) {
         const dcdMap = new Map();
-        // Cargar primero las base
-        allDCDs.forEach(d => { if (d.codigo) dcdMap.set(d.codigo, d); });
-        // Fusionar con las actualizadas del JSON
-        externalDcds.forEach(d => { if (d.codigo) dcdMap.set(d.codigo, d); });
+        // Cargar primero las base normalizadas
+        allDCDs.forEach(d => {
+          const norm = normalizeDcdRecord(d);
+          if (norm && norm.codigo) dcdMap.set(norm.codigo, norm);
+        });
+        // Fusionar con las actualizadas del JSON normalizadas
+        externalDcds.forEach(d => {
+          const norm = normalizeDcdRecord(d);
+          if (norm && norm.codigo) dcdMap.set(norm.codigo, norm);
+        });
         allDCDs = Array.from(dcdMap.values());
         console.log(`[AdaptaDIAC] Base curricular sincronizada: ${allDCDs.length} DCDs disponibles.`);
         updateDCDOptions();
@@ -55,6 +61,57 @@ async function loadExternalCurriculumDatabase() {
   } catch (err) {
     console.log('[AdaptaDIAC] Utilizando base de datos curricular integrada (offline/fallback).');
   }
+}
+
+function normalizeDcdRecord(d) {
+  if (!d) return null;
+  const codigo = (d.codigo || '').trim().replace(/\.+$/, '');
+  
+  // Normalizar subnivel a ID
+  let subnivel = (d.subnivel || '').toLowerCase().trim();
+  if (subnivel.includes('prep')) subnivel = 'preparatoria';
+  else if (subnivel.includes('elem')) subnivel = 'elemental';
+  else if (subnivel.includes('med')) subnivel = 'media';
+  else if (subnivel.includes('sup')) subnivel = 'superior';
+  else if (subnivel.includes('bach') || subnivel.includes('bgu')) subnivel = 'bachillerato';
+  
+  // Normalizar área a ID
+  let area = (d.area || '').toLowerCase().trim();
+  if (area.includes('matem')) area = 'matematica';
+  else if (area.includes('lengua') || area.includes('literatura')) area = 'lengua';
+  else if (area.includes('social')) area = 'ciencias_sociales';
+  else if (area.includes('natural')) area = 'ciencias_naturales';
+  else if (area.includes('hist')) area = 'historia';
+  else if (area.includes('filo')) area = 'filosofia';
+  else if (area.includes('ciudadan')) area = 'ciudadania';
+  else if (area.includes('biol')) area = 'biologia';
+  else if (area.includes('físic') || area.includes('fisica') || area.includes('física')) {
+    if (area.includes('educaci')) area = 'educacion_fisica';
+    else area = 'fisica';
+  }
+  else if (area.includes('quim') || area.includes('química')) area = 'quimica';
+  else if (area.includes('art') || area.includes('eca')) area = 'educacion_artistica';
+  else if (area.includes('ef') && !area.includes('efl')) area = 'educacion_fisica';
+  else if (area.includes('ingl') || area.includes('efl')) area = 'ingles';
+
+  // Si no tiene título, derivar del primer fragmento de la descripción
+  let titulo = d.titulo;
+  if (!titulo && d.descripcion) {
+    titulo = d.descripcion.replace(/^[A-Z0-9\.\s]+/, '').slice(0, 70) + '...';
+  }
+
+  return {
+    ...d,
+    codigo,
+    subnivel,
+    area,
+    titulo: titulo || `Destreza ${codigo}`,
+    descripcion: d.descripcion || `[${codigo}] Destreza curricular oficial`,
+    habilidad: d.habilidad || 'Competencia clave',
+    conocimiento: d.conocimiento || 'Contenido curricular oficial',
+    criterioEvaluacion: d.criterioEvaluacion || 'Criterio curricular oficial',
+    indicadorEvaluacion: d.indicadorEvaluacion || 'Indicador de evaluación oficial'
+  };
 }
 
 function cacheDOMElements() {
