@@ -1,0 +1,1756 @@
+/* ==========================================================================
+   AdaptaDIAC: Hoja de Estilos Moderna, Responsiva y Profesional
+   Paleta: Índigo Pedagógico, Verde Inclusivo, Ámbar Vygotsky, Cian Piaget
+   ========================================================================== */
+
+/* Variables de Diseño y Tokens */
+:root {
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Plus Jakarta Sans', var(--font-body);
+
+  /* Paleta Light Mode */
+  --bg-app: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-muted: #f1f5f9;
+  --bg-panel: #ffffff;
+  --border-color: #e2e8f0;
+  --border-focus: #6366f1;
+
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+
+  /* Primarios e Identidad */
+  --primary-50: #eef2ff;
+  --primary-100: #e0e7ff;
+  --primary-500: #6366f1;
+  --primary-600: #4f46e5;
+  --primary-700: #4338ca;
+  --primary-text: #ffffff;
+
+  /* Teorías: Vygotsky (Ámbar cálido / Andamiaje) */
+  --vygotsky-bg: #fffbeb;
+  --vygotsky-border: #fde68a;
+  --vygotsky-text: #92400e;
+  --vygotsky-pill: #d97706;
+
+  /* Teorías: Piaget (Cian / Enfoque CPA) */
+  --piaget-bg: #ecfeff;
+  --piaget-border: #a5f3fc;
+  --piaget-text: #155e75;
+  --piaget-pill: #0891b2;
+
+  /* DUA (Púrpura / Diseño Universal) */
+  --dua-bg: #faf5ff;
+  --dua-border: #e9d5ff;
+  --dua-text: #6b21a8;
+  --dua-pill: #9333ea;
+
+  /* Grados de Adaptación */
+  --g1-color: #0284c7;
+  --g1-bg: #f0f9ff;
+  --g2-color: #059669;
+  --g2-bg: #ecfdf5;
+  --g3-color: #dc2626;
+  --g3-bg: #fef2f2;
+
+  /* Sombras y Elevaciones */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  --header-height: 64px;
+  --mobile-nav-height: 56px;
+}
+
+/* Paleta Dark Mode */
+body.theme-dark {
+  --bg-app: #0b0f19;
+  --bg-card: #131b2e;
+  --bg-card-muted: #1e293b;
+  --bg-panel: #111827;
+  --border-color: #243048;
+  --border-focus: #818cf8;
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
+
+  --primary-50: #1e1e38;
+  --primary-100: #2d2d5a;
+  --primary-500: #818cf8;
+  --primary-600: #6366f1;
+  --primary-700: #4f46e5;
+
+  --vygotsky-bg: #291e0a;
+  --vygotsky-border: #78350f;
+  --vygotsky-text: #fde68a;
+
+  --piaget-bg: #082630;
+  --piaget-border: #164e63;
+  --piaget-text: #a5f3fc;
+
+  --dua-bg: #261138;
+  --dua-border: #581c87;
+  --dua-text: #e9d5ff;
+
+  --g1-bg: #082f49;
+  --g2-bg: #064e3b;
+  --g3-bg: #450a0a;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+}
+
+/* Reset y Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Accesibilidad */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 10px;
+  background: var(--primary-600);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  z-index: 100;
+  transition: top 0.2s ease;
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 10px;
+}
+
+/* ==========================================================================
+   Header Superior
+   ========================================================================== */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: var(--header-height);
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
+}
+
+.header-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary-600), #7c3aed);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+}
+
+.brand-logo svg {
+  width: 24px;
+  height: 24px;
+}
+
+.brand-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--primary-600), #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.badge-version {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--primary-50);
+  color: var(--primary-600);
+  padding: 2px 6px;
+  border-radius: 20px;
+  border: 1px solid var(--primary-100);
+}
+
+.brand-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.select-preset {
+  font-size: 0.82rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card-muted);
+  color: var(--text-main);
+  cursor: pointer;
+  max-width: 260px;
+}
+.select-preset:hover {
+  border-color: var(--primary-500);
+}
+
+.saved-count-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--primary-600);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 10px;
+}
+
+/* ==========================================================================
+   Botones y Elementos de Interfaz
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-600), #6366f1);
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.25);
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-700), #4f46e5);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.35);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+.btn-secondary:hover {
+  background: var(--bg-card-muted);
+  border-color: var(--primary-500);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+.btn-outline:hover {
+  background: var(--bg-card-muted);
+  border-color: var(--primary-500);
+  color: var(--primary-600);
+}
+
+.btn-icon-only {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  position: relative;
+}
+
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.75rem;
+}
+
+.btn-lg {
+  font-size: 1rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-lg);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--primary-600);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Estructura Principal / Split Layout
+   ========================================================================== */
+.main-layout {
+  flex: 1;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(420px, 480px) 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ==========================================================================
+   Panel Izquierdo: Formulario
+   ========================================================================== */
+.panel-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.panel-inner {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card-theory-intro {
+  background: linear-gradient(135deg, var(--primary-50), #f5f3ff);
+  border: 1px solid var(--primary-100);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+}
+body.theme-dark .card-theory-intro {
+  background: linear-gradient(135deg, #131b2e, #1a1936);
+  border-color: #2e3856;
+}
+
+.theory-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pill-vygotsky {
+  background: var(--vygotsky-bg);
+  border: 1px solid var(--vygotsky-border);
+  color: var(--vygotsky-pill);
+}
+
+.pill-piaget {
+  background: var(--piaget-bg);
+  border: 1px solid var(--piaget-border);
+  color: var(--piaget-pill);
+}
+
+.pill-dua {
+  background: var(--dua-bg);
+  border: 1px solid var(--dua-border);
+  color: var(--dua-pill);
+}
+
+.theory-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* Secciones del Formulario */
+.form-section {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary-600);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.section-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.dcd-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.select-featured {
+  font-weight: 600;
+  border-color: var(--primary-500);
+  background-color: var(--primary-50);
+}
+body.theme-dark .select-featured {
+  background-color: #1e1e38;
+}
+
+.custom-dcd-box {
+  background: var(--bg-card-muted);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* DCD Preview Card */
+.dcd-preview-card {
+  background: var(--bg-card-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dcd-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dcd-code-badge {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: var(--primary-600);
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.dcd-subnivel-badge {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.dcd-preview-text {
+  font-size: 0.82rem;
+  color: var(--text-main);
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.dcd-components-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed var(--border-color);
+}
+
+.dcd-comp-item {
+  font-size: 0.72rem;
+}
+.dcd-comp-title {
+  color: var(--text-muted);
+  font-weight: 600;
+  display: block;
+}
+.dcd-comp-val {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+/* Perfil Cognitivo Preview Box */
+.perfil-info-box {
+  background: var(--bg-card-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.perfil-info-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.perfil-icon {
+  font-size: 1.5rem;
+}
+
+.perfil-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.perfil-category {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.perfil-grid-traits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.trait-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.6rem;
+  font-size: 0.75rem;
+}
+
+.trait-label {
+  font-weight: 700;
+  color: var(--primary-600);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.trait-desc {
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* Selector de Grados de Adaptación (Radio Cards) */
+.grados-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.grado-card {
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  padding: 0.75rem 0.9rem;
+  transition: all 0.15s ease;
+  position: relative;
+}
+.grado-card:hover {
+  border-color: var(--primary-500);
+}
+.grado-card.selected {
+  border-color: var(--primary-600);
+  background: var(--primary-50);
+  box-shadow: 0 0 0 2px var(--primary-600);
+}
+body.theme-dark .grado-card.selected {
+  background: #1e1e38;
+}
+
+.grado-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.grado-badge {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.badge-g1 { background: var(--g1-bg); color: var(--g1-color); border: 1px solid var(--g1-color); }
+.badge-g2 { background: var(--g2-bg); color: var(--g2-color); border: 1px solid var(--g2-color); }
+.badge-g3 { background: var(--g3-bg); color: var(--g3-color); border: 1px solid var(--g3-color); }
+
+.grado-subtitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.grado-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.form-action-wrap {
+  margin-top: 1rem;
+}
+
+/* ==========================================================================
+   Panel Derecho: Vista Previa y Pestañas
+   ========================================================================== */
+.panel-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.preview-tabs-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+
+.preview-tabs {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.preview-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.preview-tab:hover {
+  color: var(--text-main);
+  background: var(--bg-card-muted);
+}
+.preview-tab.active {
+  background: var(--primary-600);
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.25);
+}
+
+.preview-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.preview-content-view {
+  display: none;
+}
+.preview-content-view.active {
+  display: block;
+}
+
+/* ==========================================================================
+   Hoja Oficial DIAC (Diseño Imprimible y Oficial)
+   ========================================================================== */
+.diac-sheet {
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem 2.5rem;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.diac-header {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.diac-official-badge {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #4f46e5;
+  margin-bottom: 0.2rem;
+}
+
+.diac-school-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.diac-doc-sub {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.diac-header-tag {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  background: #ecfdf5;
+  color: #059669;
+  border: 1.5px solid #059669;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Secciones del Documento Oficial */
+.doc-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.doc-sec-title {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #0f172a;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
+/* Tablas Formales del DIAC */
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.doc-table th, .doc-table td {
+  border: 1px solid #cbd5e1;
+  padding: 0.45rem 0.65rem;
+  text-align: left;
+}
+
+.doc-table th {
+  background: #f8fafc;
+  font-weight: 700;
+  color: #334155;
+  width: 20%;
+}
+
+.doc-table td {
+  color: #0f172a;
+  width: 30%;
+}
+
+.doc-highlight {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #4f46e5;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+}
+
+.doc-row-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.84rem;
+  margin-bottom: 0.5rem;
+}
+
+.font-bold { font-weight: 700; }
+.color-indigo { color: #4f46e5; }
+
+.badge-pill-inline {
+  background: #eef2ff;
+  color: #4f46e5;
+  border: 1px solid #c7d2fe;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.doc-traits-summary {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.45;
+}
+
+/* Comparación DCD Original vs Adaptada */
+.doc-dcd-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.doc-dcd-box {
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  font-size: 0.82rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.doc-dcd-box.original {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+}
+
+.doc-dcd-box.adaptada {
+  background: #eef2ff;
+  border: 1.5px solid #818cf8;
+}
+
+.box-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #475569;
+}
+.doc-dcd-box.adaptada .box-tag {
+  color: #4338ca;
+}
+
+.box-code {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.box-content {
+  color: #0f172a;
+  line-height: 1.45;
+}
+
+.doc-justif {
+  font-size: 0.75rem;
+  color: #4338ca;
+  background: #e0e7ff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+}
+
+/* Tarjetas Teóricas Vygotsky & Piaget en el Documento */
+.doc-theory-card {
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.82rem;
+}
+
+.card-vygotsky {
+  background: #fffdf5;
+  border: 1.5px solid #fde68a;
+}
+
+.card-piaget {
+  background: #f0fdfa;
+  border: 1.5px solid #99f6e4;
+}
+
+.theory-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theory-tag {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.tag-v { background: #fef3c7; color: #b45309; }
+.tag-p { background: #ccfbf1; color: #0f766e; }
+
+.theory-premise {
+  font-size: 0.82rem;
+  color: #334155;
+  line-height: 1.4;
+}
+
+/* Pasos de Andamiaje */
+.doc-andamiaje-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.andamiaje-step-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+}
+
+.andamiaje-step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.step-phase-title {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 0.82rem;
+}
+
+.step-duration {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+.step-desc {
+  font-size: 0.8rem;
+  color: #334155;
+  line-height: 1.4;
+}
+
+.step-soporte {
+  font-size: 0.72rem;
+  color: #64748b;
+  margin-top: 3px;
+}
+
+.doc-bullets {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  color: #334155;
+}
+
+.doc-par-note {
+  background: #fef3c7;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  color: #92400e;
+}
+
+/* Enfoque CPA de Piaget */
+.cpa-columns-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+}
+
+.cpa-col-card {
+  background: #ffffff;
+  border: 1px solid #ccfbf1;
+  border-radius: var(--radius-sm);
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cpa-col-title {
+  font-weight: 800;
+  font-size: 0.78rem;
+  color: #0f766e;
+}
+
+.cpa-col-desc {
+  font-size: 0.78rem;
+  color: #334155;
+  line-height: 1.35;
+}
+
+.conflicto-box {
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.8rem;
+  color: #0369a1;
+}
+
+/* Recursos y Evaluación */
+.doc-recursos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  font-size: 0.82rem;
+}
+
+.doc-eval-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  font-size: 0.82rem;
+}
+
+/* Firmas de Responsabilidad */
+.doc-firmas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.firma-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+}
+
+.firma-line {
+  width: 100%;
+  border-top: 1px solid #475569;
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   Vistas de Profundización Teórica y Plan DUA
+   ========================================================================== */
+.card-theory-deep {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+}
+
+.theory-deep-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.theory-deep-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.theory-deep-text {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.theory-diagram-box {
+  background: var(--bg-card-muted);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.zdp-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.zdp-circle {
+  padding: 0.85rem 1.2rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.circle-real { background: #f1f5f9; border: 1.5px solid #cbd5e1; }
+.circle-zdp { background: #fffbeb; border: 2px solid #f59e0b; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2); }
+.circle-potencial { background: #e0e7ff; border: 1.5px solid #818cf8; }
+
+body.theme-dark .circle-real { background: #1e293b; border-color: #334155; }
+body.theme-dark .circle-zdp { background: #3b280b; border-color: #b45309; }
+body.theme-dark .circle-potencial { background: #1e1e38; border-color: #4f46e5; }
+
+.zdp-tag {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+.zdp-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.zdp-arrow {
+  font-size: 1.5rem;
+  color: var(--primary-600);
+  font-weight: 800;
+}
+
+.theory-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.card-subtheory {
+  background: var(--bg-card-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  font-size: 0.82rem;
+}
+
+.card-title-sm {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.piaget-stages-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.stage-step {
+  background: var(--bg-card-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  font-size: 0.78rem;
+}
+.stage-step.active {
+  border-color: var(--piaget-pill);
+  background: var(--piaget-bg);
+}
+
+.stage-badge {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--piaget-pill);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.cpa-list {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+}
+
+/* Vista Plan de Clase DUA */
+.card-dua-overview {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-md);
+}
+
+.dua-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.dua-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.dua-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.dua-moments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dua-moment-card {
+  background: var(--bg-card-muted);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.moment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.moment-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.moment-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: var(--dua-bg);
+  color: var(--dua-text);
+  border: 1px solid var(--dua-border);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.moment-prop {
+  font-size: 0.82rem;
+  color: var(--primary-600);
+  font-weight: 600;
+}
+
+.moment-activity {
+  font-size: 0.85rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.moment-role {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Modales, Toasts y Utilidades
+   ========================================================================== */
+.modal-dialog {
+  margin: auto;
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: 550px;
+  width: 90%;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+}
+
+.modal-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 1.25rem;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.modal-footer {
+  padding: 0.85rem 1.25rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  background: var(--bg-card-muted);
+}
+
+.saved-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.saved-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  transition: border-color 0.15s ease;
+}
+.saved-item-row:hover {
+  border-color: var(--primary-500);
+}
+
+.saved-item-info strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+.saved-item-info span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Toast */
+.toast-notification {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transform: translateY(100px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+}
+.toast-notification.show {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Clases Utilitarias */
+.form-mt-xs { margin-top: 0.35rem; }
+.form-mt-md { margin-top: 0.75rem; }
+.form-mt-lg { margin-top: 1.5rem; }
+.text-muted { color: var(--text-muted); }
+
+/* Navegación Móvil y Barra de Acciones */
+.mobile-tabs {
+  display: none;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.25rem 0.5rem;
+  justify-content: space-around;
+  position: sticky;
+  top: var(--header-height);
+  z-index: 35;
+}
+
+.mobile-tab-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.mobile-tab-btn.active {
+  color: var(--primary-600);
+  background: var(--primary-50);
+}
+
+.mobile-action-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  padding: 0.6rem 1rem;
+  gap: 0.5rem;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.08);
+  z-index: 45;
+}
+
+/* ==========================================================================
+   Media Queries & Responsividad Móvil / Android
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+    padding: 0.85rem;
+    gap: 1rem;
+    margin-bottom: 70px; /* Espacio para barra flotante móvil */
+  }
+
+  .mobile-tabs {
+    display: flex;
+  }
+
+  .mobile-action-bar {
+    display: flex;
+  }
+
+  .panel-preview {
+    margin-top: 0.5rem;
+  }
+
+  .cpa-columns-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .theory-cards-grid, .piaget-stages-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-recursos-grid, .doc-dcd-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .diac-sheet {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .doc-firmas-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .select-preset {
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .header-container {
+    padding: 0 0.75rem;
+  }
+
+  .brand-title {
+    font-size: 1.1rem;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .select-preset {
+    display: none; /* Accessible in drawer on mobile if needed */
+  }
+
+  .preview-tabs {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+}
+
+/* ==========================================================================
+   Reglas de Impresión (@media print) para el Documento DIAC Oficial
+   ========================================================================== */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Ocultar toda la interfaz que no pertenezca a la hoja oficial */
+  .app-header,
+  .mobile-tabs,
+  .mobile-action-bar,
+  .panel-form,
+  .preview-tabs-bar,
+  #view-teoria,
+  #view-aula,
+  .modal-dialog,
+  .toast-notification,
+  .skip-link {
+    display: none !important;
+  }
+
+  .main-layout {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .panel-preview {
+    display: block !important;
+  }
+
+  #view-documento {
+    display: block !important;
+  }
+
+  .diac-sheet {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    font-size: 11pt !important;
+    page-break-after: avoid;
+  }
+
+  .diac-header {
+    border-bottom: 2pt solid #000000 !important;
+  }
+
+  .doc-table th, .doc-table td {
+    border: 1pt solid #000000 !important;
+  }
+
+  .doc-sec-title {
+    border-bottom: 1.5pt solid #000000 !important;
+  }
+
+  .doc-theory-card, .doc-dcd-box, .doc-highlight, .andamiaje-step-card, .cpa-col-card {
+    border: 1pt solid #cbd5e1 !important;
+    background: #ffffff !important;
+    page-break-inside: avoid;
+  }
+
+  .doc-firmas-section {
+    page-break-inside: avoid;
+    margin-top: 30pt;
+  }
+
+  .firma-line {
+    border-top: 1pt solid #000000 !important;
+  }
+
+  @page {
+    margin: 1.8cm 1.5cm;
+    size: A4 portrait;
+  }
+}

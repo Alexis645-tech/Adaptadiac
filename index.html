@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="description" content="AdaptaDIAC: Generador pedagógico de adaptaciones curriculares DIAC (Grado 1, 2 y 3) fundamentadas en la Zona de Desarrollo Próximo de Vygotsky y el desarrollo cognitivo de Piaget.">
+  <meta name="keywords" content="DIAC, adaptación curricular, NEE, Vygotsky, Piaget, DCD, Ecuador, inclusión educativa, DUA">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f46e5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z'/%3E%3Cpath d='M6 6h10'/%3E%3Cpath d='M6 10h10'/%3E%3Cpath d='m9 16 2 2 4-4'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <title>AdaptaDIAC | Generador de Estrategias Curriculares Inclusivas</title>
+
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-light">
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- Top App Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+            <path d="M6 6h10"/>
+            <path d="M6 10h10"/>
+            <path d="m9 16 2 2 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title-wrap">
+            <h1 class="brand-title">AdaptaDIAC</h1>
+            <span class="badge-version">v2.0 Inclusiva</span>
+          </div>
+          <p class="brand-subtitle">Generador Curricular DIAC &bull; Vygotsky & Piaget</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Preset selector -->
+        <div class="preset-dropdown-wrap">
+          <label for="select-preset" class="sr-only">Cargar caso de prueba</label>
+          <select id="select-preset" class="form-select select-preset" title="Cargar casos prácticos preconfigurados">
+            <option value="" disabled selected>⚡ Casos Prácticos Rápidos</option>
+            <option value="caso-tdah">Lucas (4to EGB - Mate - TDAH - Grado 2)</option>
+            <option value="caso-dislexia">Sofía (6to EGB - Lengua - Dislexia - Grado 2)</option>
+            <option value="caso-tea">Mateo (3ro EGB - Ciencias - TEA - Grado 2)</option>
+            <option value="caso-intelectual">Camila (8vo EGB - Lengua - Discapacidad Intelectual - Grado 3)</option>
+            <option value="caso-discalculia">David (7mo EGB - Mate - Discalculia - Grado 2)</option>
+            <option value="caso-altas">Valeria (10mo EGB - Sociales - Altas Capacidades - Grado 1)</option>
+          </select>
+        </div>
+
+        <!-- Saved DIACs button -->
+        <button id="btn-open-saved" class="btn btn-secondary btn-icon-only" title="Mis adaptaciones guardadas" aria-label="Ver adaptaciones guardadas">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          <span class="saved-count-badge" id="saved-badge" style="display: none;">0</span>
+        </button>
+
+        <!-- Theme toggle -->
+        <button id="btn-theme-toggle" class="btn btn-secondary btn-icon-only" title="Cambiar tema claro/oscuro" aria-label="Alternar tema">
+          <svg id="theme-icon-sun" class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg id="theme-icon-moon" class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+
+        <!-- Install PWA button -->
+        <button id="btn-install-pwa" class="btn btn-primary btn-sm btn-install-app" style="display: none;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Instalar App</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile View Navigation Tabs -->
+  <nav class="mobile-tabs" aria-label="Pestañas móviles">
+    <button class="mobile-tab-btn active" data-tab="tab-formulario">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      <span>Configurador</span>
+    </button>
+    <button class="mobile-tab-btn" data-tab="tab-diac">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span>Documento DIAC</span>
+    </button>
+    <button class="mobile-tab-btn" data-tab="tab-pedagogia">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <span>Vygotsky & Piaget</span>
+    </button>
+  </nav>
+
+  <!-- Main Container -->
+  <main id="main-content" class="main-layout">
+    
+    <!-- LEFT PANEL: Configuration & Form -->
+    <aside class="panel-form" id="panel-form">
+      <div class="panel-inner">
+        
+        <!-- Welcome Card & Theory Badge -->
+        <div class="card card-theory-intro">
+          <div class="theory-badges">
+            <span class="pill pill-vygotsky">
+              <span class="pill-dot"></span> Vygotsky: ZDP & Andamiaje
+            </span>
+            <span class="pill pill-piaget">
+              <span class="pill-dot"></span> Piaget: Enfoque CPA & Conflicto
+            </span>
+          </div>
+          <p class="theory-desc">Selecciona la destreza curricular y el perfil del estudiante. AdaptaDIAC estructurará la adaptación metodológica y la propuesta técnica lista para el DIAC.</p>
+        </div>
+
+        <form id="form-adaptacion" onsubmit="return false;">
+          
+          <!-- SECCIÓN 1: DATOS DEL ESTUDIANTE -->
+          <section class="form-section">
+            <div class="section-header">
+              <span class="step-num">1</span>
+              <div>
+                <h2 class="section-title">Datos del Estudiante y Contexto</h2>
+                <p class="section-hint">Información general para el encabezado del documento</p>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="input-estudiante" class="form-label">Nombre del Estudiante</label>
+                <input type="text" id="input-estudiante" class="form-input" placeholder="Ej: Lucas M. A." value="Lucas Morales">
+              </div>
+
+              <div class="form-group">
+                <label for="input-institucion" class="form-label">Institución Educativa</label>
+                <input type="text" id="input-institucion" class="form-input" placeholder="Ej: U.E. República del Ecuador" value="Unidad Educativa Simón Bolívar">
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="input-grado-escolar" class="form-label">Año / Grado de EGB o BGU</label>
+                <input type="text" id="input-grado-escolar" class="form-input" placeholder="Ej: 4.° Grado EGB Paralelo B" value="4.° Año EGB - Paralelo A">
+              </div>
+
+              <div class="form-group">
+                <label for="input-fecha" class="form-label">Fecha de Elaboración</label>
+                <input type="date" id="input-fecha" class="form-input">
+              </div>
+            </div>
+          </section>
+
+          <!-- SECCIÓN 2: CURRÍCULO Y DESTREZA (DCD) -->
+          <section class="form-section">
+            <div class="section-header">
+              <span class="step-num">2</span>
+              <div>
+                <h2 class="section-title">Destreza con Criterio de Desempeño (DCD)</h2>
+                <p class="section-hint">Selecciona del catálogo nacional o ingresa una personalizada</p>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="select-subnivel" class="form-label">Subnivel Educativo</label>
+                <select id="select-subnivel" class="form-select">
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="select-area" class="form-label">Área del Conocimiento</label>
+                <select id="select-area" class="form-select">
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="dcd-label-row">
+                <label for="select-dcd" class="form-label">Destreza Oficial (DCD)</label>
+                <button type="button" id="btn-toggle-custom-dcd" class="btn-link">
+                  <span id="label-toggle-custom">+ Usar DCD personalizada</span>
+                </button>
+              </div>
+              <select id="select-dcd" class="form-select">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+
+            <!-- Custom DCD container (Hidden by default) -->
+            <div id="container-custom-dcd" class="custom-dcd-box" style="display: none;">
+              <div class="form-group">
+                <label for="input-custom-codigo" class="form-label">Código DCD (Opcional)</label>
+                <input type="text" id="input-custom-codigo" class="form-input" placeholder="Ej: M.2.1.99">
+              </div>
+              <div class="form-group">
+                <label for="input-custom-texto" class="form-label">Texto Completo de la Destreza</label>
+                <textarea id="input-custom-texto" class="form-textarea" rows="3" placeholder="Pega aquí la destreza con criterio de desempeño del currículo..."></textarea>
+              </div>
+            </div>
+
+            <!-- DCD Card Preview -->
+            <div id="preview-dcd-card" class="dcd-preview-card">
+              <div class="dcd-preview-header">
+                <span class="dcd-code-badge" id="preview-dcd-codigo">M.2.1.12</span>
+                <span class="dcd-subnivel-badge" id="preview-dcd-subnivel">Básica Elemental</span>
+              </div>
+              <p class="dcd-preview-text" id="preview-dcd-texto">Cargando destreza...</p>
+              <div class="dcd-components-grid">
+                <div class="dcd-comp-item">
+                  <span class="dcd-comp-title">Habilidad:</span>
+                  <span class="dcd-comp-val" id="preview-dcd-habilidad">-</span>
+                </div>
+                <div class="dcd-comp-item">
+                  <span class="dcd-comp-title">Contenido:</span>
+                  <span class="dcd-comp-val" id="preview-dcd-conocimiento">-</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECCIÓN 3: PERFIL COGNITIVO DEL ESTUDIANTE -->
+          <section class="form-section">
+            <div class="section-header">
+              <span class="step-num">3</span>
+              <div>
+                <h2 class="section-title">Perfil Cognitivo y NEE</h2>
+                <p class="section-hint">Condición de aprendizaje y características neurológicas</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="select-perfil" class="form-label">Condición / Necesidad Educativa Especial</label>
+              <select id="select-perfil" class="form-select select-featured">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+
+            <!-- Cognitive Features Preview -->
+            <div id="preview-perfil-card" class="perfil-info-box">
+              <div class="perfil-info-header">
+                <span class="perfil-icon" id="preview-perfil-icon">⚡</span>
+                <div>
+                  <h3 class="perfil-title" id="preview-perfil-title">TDAH</h3>
+                  <span class="perfil-category" id="preview-perfil-cat">No asociada a discapacidad</span>
+                </div>
+              </div>
+              <div class="perfil-grid-traits">
+                <div class="trait-card">
+                  <span class="trait-label">🧠 Atención & Foco:</span>
+                  <p class="trait-desc" id="preview-trait-atencion">Cargando...</p>
+                </div>
+                <div class="trait-card">
+                  <span class="trait-label">📦 Memoria de Trabajo:</span>
+                  <p class="trait-desc" id="preview-trait-memoria">Cargando...</p>
+                </div>
+                <div class="trait-card">
+                  <span class="trait-label">⚙️ Funciones Ejecutivas:</span>
+                  <p class="trait-desc" id="preview-trait-ejecutivas">Cargando...</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECCIÓN 4: GRADO DE ADAPTACIÓN CURRICULAR -->
+          <section class="form-section">
+            <div class="section-header">
+              <span class="step-num">4</span>
+              <div>
+                <h2 class="section-title">Grado de Adaptación Curricular (DIAC)</h2>
+                <p class="section-hint">Determina el nivel de intervención sobre el currículo</p>
+              </div>
+            </div>
+
+            <div class="grados-radio-group">
+              <label class="grado-card" id="grado-card-1">
+                <input type="radio" name="radio-grado" value="1" class="sr-only">
+                <div class="grado-card-content">
+                  <div class="grado-top">
+                    <span class="grado-badge badge-g1">Grado 1</span>
+                    <span class="grado-subtitle">De Acceso al Currículo</span>
+                  </div>
+                  <p class="grado-desc">Modifica espacios, recursos, mobiliario e iluminación. <strong>No altera</strong> la DCD ni la metodología nuclear.</p>
+                </div>
+              </label>
+
+              <label class="grado-card selected" id="grado-card-2">
+                <input type="radio" name="radio-grado" value="2" class="sr-only" checked>
+                <div class="grado-card-content">
+                  <div class="grado-top">
+                    <span class="grado-badge badge-g2">Grado 2 (Recomendada)</span>
+                    <span class="grado-subtitle">No Significativa / Metodológica</span>
+                  </div>
+                  <p class="grado-desc">Modifica metodologías, tiempos y formato de evaluación (Vygotsky & Piaget). <strong>Conserva</strong> la destreza esencial.</p>
+                </div>
+              </label>
+
+              <label class="grado-card" id="grado-card-3">
+                <input type="radio" name="radio-grado" value="3" class="sr-only">
+                <div class="grado-card-content">
+                  <div class="grado-top">
+                    <span class="grado-badge badge-g3">Grado 3</span>
+                    <span class="grado-subtitle">Significativa / Curricular</span>
+                  </div>
+                  <p class="grado-desc"><strong>Desagrega o reduce</strong> la complejidad de la DCD a un subnivel anterior y adapta los criterios de evaluación.</p>
+                </div>
+              </label>
+            </div>
+
+            <div class="form-grid-2 form-mt-md">
+              <div class="form-group">
+                <label for="select-apoyo" class="form-label">Nivel de Apoyo Requerido</label>
+                <select id="select-apoyo" class="form-select">
+                  <option value="Bajo">Apoyo Intermitente / Bajo (Autonomía parcial)</option>
+                  <option value="Medio" selected>Apoyo Frecuente / Medio (Tutoría guiada)</option>
+                  <option value="Alto">Apoyo Generalizado / Alto (Acompañamiento continuo)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="input-docente" class="form-label">Nombre del Docente / Evaluador</label>
+                <input type="text" id="input-docente" class="form-input" placeholder="Ej: Lic. Elena Morales" value="Lic. Carlos Mendoza">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="textarea-obs" class="form-label">Observaciones Particulares del Docente o DECE (Opcional)</label>
+              <textarea id="textarea-obs" class="form-textarea" rows="2" placeholder="Ej: El estudiante responde muy favorablemente al refuerzo positivo y a la música ambiental suave."></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-action-wrap">
+              <button type="button" id="btn-generar" class="btn btn-primary btn-lg btn-block">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+                <span>Generar Estrategias y DIAC</span>
+              </button>
+            </div>
+          </section>
+
+        </form>
+
+      </div>
+    </aside>
+
+    <!-- RIGHT PANEL: Output DIAC & Pedagogical Tabs -->
+    <section class="panel-preview" id="panel-preview">
+      
+      <!-- Preview Subheader / View Tabs -->
+      <div class="preview-tabs-bar">
+        <div class="preview-tabs">
+          <button class="preview-tab active" data-view="view-documento">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Documento Oficial DIAC</span>
+          </button>
+          <button class="preview-tab" data-view="view-teoria">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Vygotsky & Piaget a Fondo</span>
+          </button>
+          <button class="preview-tab" data-view="view-aula">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>Plan de Clase Inclusivo (DUA)</span>
+          </button>
+        </div>
+
+        <!-- Quick actions: Print, Copy, Save -->
+        <div class="preview-actions">
+          <button id="btn-save-diac" class="btn btn-outline btn-sm" title="Guardar en el navegador">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
+            <span>Guardar</span>
+          </button>
+          <button id="btn-copy-diac" class="btn btn-outline btn-sm" title="Copiar al portapapeles para pegar en Word">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span id="copy-text">Copiar DIAC</span>
+          </button>
+          <button id="btn-print-diac" class="btn btn-primary btn-sm" title="Imprimir o guardar como PDF">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <span>Imprimir / PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW 1: OFFICIAL DIAC DOCUMENT (Printable sheet) -->
+      <div id="view-documento" class="preview-content-view active">
+        <article class="diac-sheet" id="diac-sheet-content">
+          
+          <!-- Document Header -->
+          <div class="diac-header">
+            <div class="diac-header-text">
+              <span class="diac-official-badge">DOCUMENTO INDIVIDUAL DE ADAPTACIÓN CURRICULAR (DIAC)</span>
+              <h2 class="diac-school-name" id="doc-institucion">Unidad Educativa Simón Bolívar</h2>
+              <p class="diac-doc-sub">Planificación y Estrategias Pedagógicas Inclusivas (Normativa MinEduc)</p>
+            </div>
+            <div class="diac-header-tag" id="doc-tag-grado">ADAPTACIÓN GRADO 2</div>
+          </div>
+
+          <!-- Section 1: Informative Data -->
+          <section class="doc-section">
+            <h3 class="doc-sec-title">1. DATOS INFORMATIVOS DEL ESTUDIANTE</h3>
+            <table class="doc-table">
+              <tbody>
+                <tr>
+                  <th scope="row">Estudiante:</th>
+                  <td id="doc-estudiante">Lucas Morales</td>
+                  <th scope="row">Fecha de Registro:</th>
+                  <td id="doc-fecha">18 de octubre de 2026</td>
+                </tr>
+                <tr>
+                  <th scope="row">Año/Grado EGB:</th>
+                  <td id="doc-grado-escolar">4.° Año EGB - Paralelo A</td>
+                  <th scope="row">Docente Responsable:</th>
+                  <td id="doc-docente">Lic. Carlos Mendoza</td>
+                </tr>
+                <tr>
+                  <th scope="row">Asignatura:</th>
+                  <td id="doc-area">Matemática</td>
+                  <th scope="row">Subnivel Educativo:</th>
+                  <td id="doc-subnivel">Básica Elemental</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Section 2: NEE & Cognitive Profile -->
+          <section class="doc-section">
+            <h3 class="doc-sec-title">2. CONDICIÓN Y PERFIL COGNITIVO DEL ESTUDIANTE</h3>
+            <div class="doc-block doc-highlight">
+              <div class="doc-row-flex">
+                <div>
+                  <strong>Diagnóstico / Condición NEE:</strong>
+                  <span id="doc-perfil-nombre" class="font-bold color-indigo">TDAH (Déficit de Atención con Hiperactividad)</span>
+                </div>
+                <div>
+                  <strong>Tipo de Adaptación:</strong>
+                  <span id="doc-grado-nombre" class="badge-pill-inline">Grado 2 (No Significativa)</span>
+                </div>
+              </div>
+              <div class="doc-traits-summary" id="doc-traits-summary">
+                <p><strong>Síntesis de Funciones Cognitivas:</strong> Dificultad en atención selectiva y memoria de trabajo fonológica. Necesidad de material visual estructurado y descansos cognitivos intermedios.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 3: Destreza Original y Adaptada -->
+          <section class="doc-section">
+            <h3 class="doc-sec-title">3. DESTREZA CON CRITERIO DE DESEMPEÑO (DCD)</h3>
+            <div class="doc-dcd-comparison">
+              <div class="doc-dcd-box original">
+                <span class="box-tag">DCD Original del Currículo Nacional</span>
+                <p class="box-code" id="doc-dcd-orig-codigo">M.2.1.12</p>
+                <p class="box-content" id="doc-dcd-orig-texto">Representar, escribir y leer los números naturales del 0 al 999 en forma concreta, gráfica y simbólica, y resolver adiciones y sustracciones con reagrupación.</p>
+              </div>
+
+              <div class="doc-dcd-box adaptada">
+                <span class="box-tag" id="doc-dcd-adapt-tag">DCD Adaptada / Metodológica</span>
+                <p class="box-code" id="doc-dcd-adapt-codigo">M.2.1.12 (Metodológica)</p>
+                <p class="box-content" id="doc-dcd-adapt-texto">Representar, escribir y leer los números naturales del 0 al 999 con mediación concreta, tarjetas de valor posicional y tiempo extendido.</p>
+                <div class="doc-justif" id="doc-dcd-justif">
+                  <em>Justificación Técnica: Se mantiene la destreza esencial incorporando andamiaje metodológico para compensar la sobrecarga ejecutiva.</em>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 4: Propuesta Pedagógica (Vygotsky y Piaget) -->
+          <section class="doc-section">
+            <h3 class="doc-sec-title">4. ESTRATEGIAS METODOLÓGICAS FUNDAMENTADAS (VYGOTSKY & PIAGET)</h3>
+            
+            <!-- Vygotsky Card -->
+            <div class="doc-theory-card card-vygotsky">
+              <div class="theory-title-row">
+                <span class="theory-tag tag-v">L. S. Vygotsky &bull; Zona de Desarrollo Próximo (ZDP)</span>
+              </div>
+              <div class="doc-subblock">
+                <p class="theory-premise" id="doc-v-premise"><strong>Diagnóstico de la ZDP:</strong> Línea base real vs. nivel potencial mediado.</p>
+              </div>
+              <div class="doc-andamiaje-steps" id="doc-v-andamiaje">
+                <!-- Populated by JS -->
+              </div>
+              <div class="doc-mediadores-box">
+                <strong>Mediadores Semióticos y Signos Culturales:</strong>
+                <ul class="doc-bullets" id="doc-v-mediadores">
+                  <!-- Populated by JS -->
+                </ul>
+              </div>
+              <p class="doc-par-note" id="doc-v-par"><strong>Estrategia de Par Pedagógico:</strong> Tutoría colaborativa entre pares.</p>
+            </div>
+
+            <!-- Piaget Card -->
+            <div class="doc-theory-card card-piaget form-mt-md">
+              <div class="theory-title-row">
+                <span class="theory-tag tag-p">Jean Piaget &bull; Enfoque Concreto - Pictórico - Abstracto (CPA)</span>
+              </div>
+              <p class="theory-premise" id="doc-p-estadio"><strong>Estadio Cognitivo Aplicable:</strong> Operaciones Concretas.</p>
+              
+              <div class="cpa-columns-grid" id="doc-p-cpa">
+                <!-- Populated by JS -->
+              </div>
+
+              <div class="conflicto-box" id="doc-p-conflicto">
+                <strong>Desencadenante de Conflicto Cognitivo:</strong>
+                <p id="doc-p-conflicto-text">Planteamiento de disonancia guiada para activar asimilación y acomodación.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 5: Recursos y Apoyos Técnicos (Grado 1) -->
+          <section class="doc-section">
+            <h3 class="doc-sec-title">5. RECURSOS DIDÁCTICOS Y ADAPTACIONES DE ACCESO</h3>
+            <div class="doc-recursos-grid">
+              <div class="rec-col">
+                <strong>Condiciones Ambientales y de Aula:</strong>
+                <ul class="doc-bullets" id="doc-recursos-ambiente">
+                  <!-- Populated by JS -->
+                </ul>
+              </div>
+              <div class="rec-col">
+                <strong>Material Didáctico Específico:</strong>
+                <ul class="doc-bullets" id="doc-recursos-especificos">
+                  <!-- Populated by JS -->
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 6: Evaluación Adaptada -->
+          <section class="doc-section">
+            <h3 class="doc-sec-title">6. CRITERIOS Y MECANISMOS DE EVALUACIÓN ADAPTADA</h3>
+            <div class="doc-eval-box">
+              <p><strong>Criterio / Indicador Adaptado:</strong> <span id="doc-eval-indicador">Aplica las propiedades de las operaciones utilizando apoyos visuales y tiempo adicional.</span></p>
+              <p class="form-mt-xs"><strong>Instrumentos Recomendados:</strong></p>
+              <ul class="doc-bullets" id="doc-eval-instrumentos">
+                <!-- Populated by JS -->
+              </ul>
+              <p class="form-mt-xs"><strong>Medidas de Flexibilización en Pruebas:</strong></p>
+              <ul class="doc-bullets" id="doc-eval-medidas">
+                <!-- Populated by JS -->
+              </ul>
+            </div>
+          </section>
+
+          <!-- Section 7: Corresponsabilidad DECE y Familia -->
+          <section class="doc-section">
+            <h3 class="doc-sec-title">7. RECOMENDACIONES DE CORRESPONSABILIDAD</h3>
+            <div class="doc-recursos-grid">
+              <div class="rec-col">
+                <strong>Acompañamiento DECE:</strong>
+                <ul class="doc-bullets" id="doc-dece-recs">
+                  <!-- Populated by JS -->
+                </ul>
+              </div>
+              <div class="rec-col">
+                <strong>Compromiso Familiar en Hogar:</strong>
+                <ul class="doc-bullets" id="doc-familia-recs">
+                  <!-- Populated by JS -->
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 8: Firmas de Responsabilidad -->
+          <section class="doc-section doc-firmas-section">
+            <h3 class="doc-sec-title">8. FIRMAS DE RESPONSABILIDAD TÉCNICA</h3>
+            <div class="doc-firmas-grid">
+              <div class="firma-box">
+                <div class="firma-line"></div>
+                <strong id="doc-firma-docente">Lic. Carlos Mendoza</strong>
+                <span>Docente de Aula / Tutor</span>
+              </div>
+              <div class="firma-box">
+                <div class="firma-line"></div>
+                <strong>Coordinación Pedagógica</strong>
+                <span>Comisión Técnico-Pedagógica</span>
+              </div>
+              <div class="firma-box">
+                <div class="firma-line"></div>
+                <strong>Profesional DECE</strong>
+                <span>Dpto. de Consejería Estudiantil</span>
+              </div>
+            </div>
+          </section>
+
+        </article>
+      </div>
+
+      <!-- VIEW 2: TEORÍA A FONDO (Vygotsky & Piaget Breakdown) -->
+      <div id="view-teoria" class="preview-content-view">
+        <div class="card card-theory-deep">
+          <div class="theory-deep-header">
+            <span class="pill pill-vygotsky">L. S. Vygotsky</span>
+            <h2>Fundamentos de la Zona de Desarrollo Próximo (ZDP) y Mediación Semiótica</h2>
+          </div>
+          <p class="theory-deep-text">
+            Vygotsky definió la <strong>Zona de Desarrollo Próximo</strong> como la distancia entre el nivel de desarrollo real (determinado por la capacidad de resolver independientemente un problema) y el nivel de desarrollo potencial (determinado a través de la resolución bajo la guía de un adulto o en colaboración con otro compañero más capaz).
+          </p>
+
+          <div class="theory-diagram-box">
+            <div class="zdp-diagram">
+              <div class="zdp-circle circle-real">
+                <span class="zdp-tag">Nivel Real</span>
+                <span class="zdp-sub">Autonomía actual</span>
+              </div>
+              <div class="zdp-arrow">&rarr;</div>
+              <div class="zdp-circle circle-zdp">
+                <span class="zdp-tag">ZONA DE DESARROLLO PRÓXIMO</span>
+                <span class="zdp-sub">Andamiaje / Scaffolding & Mediación del Par</span>
+              </div>
+              <div class="zdp-arrow">&rarr;</div>
+              <div class="zdp-circle circle-potencial">
+                <span class="zdp-tag">Nivel Potencial</span>
+                <span class="zdp-sub">Meta de aprendizaje</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="theory-cards-grid">
+            <div class="card card-subtheory">
+              <h3 class="card-title-sm">1. Mediación Instrumental y Semiótica</h3>
+              <p>Los signos, esquemas visuales, fichas nemotécnicas y agendas no son simples muletas; son <em>instrumentos psicológicos</em> que el estudiante interioriza para transformar sus funciones mentales naturales en funciones psicológicas superiores.</p>
+            </div>
+            <div class="card card-subtheory">
+              <h3 class="card-title-sm">2. Tutoría Dialógica de Pares</h3>
+              <p>El "par pedagógico" genera un lenguaje accesible y cercano. El estudiante con NEE se beneficia de la co-construcción cognitiva, mientras el compañero tutor afianza su metacognición al tener que explicar el procedimiento.</p>
+            </div>
+            <div class="card card-subtheory">
+              <h3 class="card-title-sm">3. Fading (Desvanecimiento Progresivo)</h3>
+              <p>Un andamiaje efectivo está diseñado para ser desmantelado. Se reduce gradualmente la frecuencia de la ayuda a medida que el alumno interioriza la regla algorítmica o conceptual.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-theory-deep form-mt-lg">
+          <div class="theory-deep-header">
+            <span class="pill pill-piaget">Jean Piaget</span>
+            <h2>Epistemología Genética, Conflicto Cognitivo y Enfoque CPA</h2>
+          </div>
+          <p class="theory-deep-text">
+            Para Jean Piaget, el aprendizaje es un proceso activo de construcción a través de la interacción sujeto-objeto. Frente a un nuevo estímulo, el niño activa los mecanismos de <strong>asimilación</strong> (incorporar el dato a sus esquemas previos) y <strong>acomodación</strong> (modificar sus esquemas ante la evidencia del conflicto cognitivo).
+          </p>
+
+          <div class="piaget-stages-timeline">
+            <div class="stage-step">
+              <span class="stage-badge">Preoperacional (2-7 años)</span>
+              <p>Pensamiento intuitivo y simbólico. Dificultad con la reversibilidad y conservación.</p>
+            </div>
+            <div class="stage-step active">
+              <span class="stage-badge">Operaciones Concretas (7-11 años)</span>
+              <p>Razonamiento lógico sobre objetos físicamente manipulables. Reversibilidad y seriación logradas.</p>
+            </div>
+            <div class="stage-step">
+              <span class="stage-badge">Operaciones Formales (12+ años)</span>
+              <p>Pensamiento abstracto, formulación de hipótesis deductivas y combinatoria formal.</p>
+            </div>
+          </div>
+
+          <div class="card card-cpa-summary form-mt-md">
+            <h3 class="card-title-sm">El Enfoque Metodológico CPA en el DIAC:</h3>
+            <ul class="cpa-list">
+              <li><strong>C - Concreto:</strong> Manipular objetos físicos (regletas, semillas, letras magnéticas, muestras biológicas reales).</li>
+              <li><strong>P - Pictórico:</strong> Representar la experiencia manipulada en diagramas, dibujos, franjas coloreadas o cómics.</li>
+              <li><strong>A - Abstracto:</strong> Formular la operación con cifras o el texto formal en palabras una vez que la estructura mental se consolidó.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: PLAN DE CLASE INCLUSIVO (DUA) -->
+      <div id="view-aula" class="preview-content-view">
+        <div class="card card-dua-overview">
+          <div class="dua-header">
+            <span class="pill pill-dua">Diseño Universal para el Aprendizaje (DUA)</span>
+            <h2>Secuencia Didáctica Inclusiva en el Aula Ordinaria</h2>
+          </div>
+          <p class="dua-desc">Estructura para integrar al estudiante con NEE en la misma dinámica del grupo sin aislarlo, aplicando los tres momentos de la clase.</p>
+          
+          <div class="dua-moments-list" id="dua-moments-container">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Modal: Saved DIACs -->
+  <dialog id="modal-saved" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Mis Adaptaciones Guardadas</h2>
+        <button id="btn-close-modal" class="btn-close" aria-label="Cerrar modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="saved-list" class="saved-items-list">
+          <!-- Populated by JS -->
+        </div>
+        <p id="saved-empty" class="text-muted" style="text-align: center; padding: 2rem;">No tienes adaptaciones guardadas aún. Haz clic en "Guardar" para almacenar tus DIACs localmente.</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-clear-all-saved" class="btn btn-outline btn-sm">Limpiar todo</button>
+        <button id="btn-close-modal-footer" class="btn btn-secondary btn-sm">Cerrar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification" role="status" aria-live="polite">
+    <span id="toast-message">Copiado al portapapeles</span>
+  </div>
+
+  <!-- Mobile Sticky Footer Action Bar -->
+  <footer class="mobile-action-bar">
+    <button id="btn-mobile-generate" class="btn btn-primary btn-sm">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span>Generar DIAC</span>
+    </button>
+    <button id="btn-mobile-copy" class="btn btn-secondary btn-sm">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      <span>Copiar</span>
+    </button>
+    <button id="btn-mobile-print" class="btn btn-secondary btn-sm">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      <span>PDF</span>
+    </button>
+  </footer>
+
+  <!-- App Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
