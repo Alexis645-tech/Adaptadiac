@@ -102,10 +102,10 @@ def save_dcds(dcds: List[Dict[str, Any]]) -> None:
     print(f"[SUCCESS] Guardadas {len(deduped)} DCDs estructuradas en {OUTPUT_JSON}")
 
 def determine_area_and_sublevel(codigo: str) -> tuple:
-    """Determina de forma determinista el área y el subnivel a partir del código oficial."""
+    """Determina de forma determinista el área y el subnivel a partir del código oficial ecuatoriano."""
     codigo_upper = codigo.upper().strip()
     
-    # 1. Identificar subnivel por el número del segundo bloque
+    # 1. Identificar subnivel por el número del segundo bloque (1=prep, 2=elem, 3=media, 4=sup, 5=bgu)
     subnivel = "bachillerato"
     parts = codigo_upper.split(".")
     for p in parts[1:]:
@@ -113,12 +113,50 @@ def determine_area_and_sublevel(codigo: str) -> tuple:
             subnivel = SUBNIVEL_DIGIT_MAP[p]
             break
 
-    # 2. Identificar área por prefijo más específico
-    area = "matematica"
-    for prefix in sorted(AREA_PREFIX_MAP.keys(), key=len, reverse=True):
-        if codigo_upper.startswith(prefix + "."):
-            area = AREA_PREFIX_MAP[prefix]
-            break
+    # 2. Identificar área según el subnivel
+    if subnivel == "bachillerato":
+        if codigo_upper.startswith("CS.H."):
+            area = "historia"
+        elif codigo_upper.startswith("CS.F."):
+            area = "filosofia"
+        elif codigo_upper.startswith("CS.EC."):
+            area = "ciudadania"
+        elif codigo_upper.startswith("CN.B."):
+            area = "biologia"
+        elif codigo_upper.startswith("CN.F."):
+            area = "fisica"
+        elif codigo_upper.startswith("CN.Q."):
+            area = "quimica"
+        elif codigo_upper.startswith("M."):
+            area = "matematica"
+        elif codigo_upper.startswith("LL."):
+            area = "lengua"
+        elif codigo_upper.startswith("ECA."):
+            area = "educacion_artistica"
+        elif codigo_upper.startswith("EF."):
+            area = "educacion_fisica"
+        elif codigo_upper.startswith("EFL."):
+            area = "ingles"
+        else:
+            area = "historia"
+    else:
+        # En Preparatoria, Elemental, Media y Superior:
+        if codigo_upper.startswith("CS."):
+            area = "ciencias_sociales"
+        elif codigo_upper.startswith("CN."):
+            area = "ciencias_naturales"
+        elif codigo_upper.startswith("M."):
+            area = "matematica"
+        elif codigo_upper.startswith("LL."):
+            area = "lengua"
+        elif codigo_upper.startswith("ECA."):
+            area = "educacion_artistica"
+        elif codigo_upper.startswith("EF."):
+            area = "educacion_fisica"
+        elif codigo_upper.startswith("EFL."):
+            area = "ingles"
+        else:
+            area = "matematica"
 
     return area, subnivel
 

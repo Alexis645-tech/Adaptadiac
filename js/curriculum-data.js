@@ -1,5 +1,5 @@
 // Base de datos del Currículo Nacional y Destrezas con Criterio de Desempeño (DCD)
-// Organizadas por Subniveles Educativos y Áreas del Conocimiento
+// Organizadas por Subniveles Educativos y Áreas del Conocimiento (Ministerio de Educación del Ecuador)
 
 export const SUBNIVELES = [
   { id: 'preparatoria', name: '1. Preparatoria (1.° EGB - 5 años)', edad: '5 años', etapaPiaget: 'Preoperacional' },
@@ -12,7 +12,9 @@ export const SUBNIVELES = [
 export const AREAS = [
   { id: 'matematica', name: 'Matemática', icon: '📐' },
   { id: 'lengua', name: 'Lengua y Literatura', icon: '📚' },
-  { id: 'historia', name: 'Historia', icon: '🏛️' },
+  { id: 'ciencias_sociales', name: 'Ciencias Sociales', icon: '🌍', subniveles: ['preparatoria', 'elemental', 'media', 'superior'] },
+  { id: 'ciencias_naturales', name: 'Ciencias Naturales', icon: '🌿', subniveles: ['preparatoria', 'elemental', 'media', 'superior'] },
+  { id: 'historia', name: 'Historia', icon: '🏛️', subniveles: ['bachillerato'] },
   { id: 'filosofia', name: 'Filosofía', icon: '💭', subniveles: ['bachillerato'] },
   { id: 'ciudadania', name: 'Educación para la Ciudadanía', icon: '⚖️', subniveles: ['bachillerato'] },
   { id: 'biologia', name: 'Biología', icon: '🧬', subniveles: ['bachillerato'] },
@@ -24,7 +26,130 @@ export const AREAS = [
 ];
 
 export const DCD_DATABASE = [
-  // --- BÁSICA ELEMENTAL: MATEMÁTICA ---
+  // =========================================================================
+  // 1. PREPARATORIA (1.° EGB - 5 AÑOS)
+  // =========================================================================
+  {
+    codigo: 'M.1.4.14',
+    subnivel: 'preparatoria',
+    area: 'matematica',
+    titulo: 'Conteo y cuantificación de colecciones del 1 al 10',
+    descripcion: 'M.1.4.14. Identificar cantidades y asociarlas con los numerales del 1 al 10 en material concreto y situaciones lúdicas de la vida cotidiana.',
+    criterioEvaluacion: 'CE.M.1.2. Utiliza el conteo de colecciones de objetos hasta el 10 en situaciones cotidianas.',
+    indicadorEvaluacion: 'I.M.1.2.2. Resuelve situaciones cotidianas que requieren de la comparación y conteo de colecciones de hasta 10 elementos.',
+    habilidad: 'Contar, asociar y discriminar',
+    conocimiento: 'Correspondencia uno a uno, número y cantidad hasta 10',
+    contexto: 'Rincón de juegos, material no estructurado y canciones lúdicas',
+    nivelCognitivo: 'Preoperacional / Simbólico'
+  },
+  {
+    codigo: 'M.1.4.21',
+    subnivel: 'preparatoria',
+    area: 'matematica',
+    titulo: 'Reconocimiento de figuras geométricas básicas bidimensionales',
+    descripcion: 'M.1.4.21. Reconocer figuras geométricas (triángulo, cuadrado, rectángulo y círculo) en objetos del entorno cotidiano y en representaciones gráficas.',
+    criterioEvaluacion: 'CE.M.1.3. Reconoce figuras geométricas básicas en objetos del entorno.',
+    indicadorEvaluacion: 'I.M.1.3.1. Identifica y nombra figuras geométricas básicas en objetos de su contexto.',
+    habilidad: 'Identificar, discriminar y nombrar',
+    conocimiento: 'Círculo, cuadrado, triángulo y rectángulo',
+    contexto: 'Objetos del aula, bloques lógicos y figuras del hogar',
+    nivelCognitivo: 'Preoperacional / Sensoriomotor'
+  },
+  {
+    codigo: 'LL.1.5.5',
+    subnivel: 'preparatoria',
+    area: 'lengua',
+    titulo: 'Desarrollo de la conciencia fonológica y léxica',
+    descripcion: 'LL.1.5.5. Desarrollar la expresión oral en contextos cotidianos usando la conciencia fonológica (rimas, aliteraciones, segmentación silábica) y la conciencia léxica.',
+    criterioEvaluacion: 'CE.LL.1.3. Desarrolla la expresión oral mediante la conciencia fonológica y el vocabulario.',
+    indicadorEvaluacion: 'I.LL.1.3.1. Discrimina sonidos iniciales y finales, produce rimas y segmenta sílabas en palabras familiares.',
+    habilidad: 'Discriminar, segmentar y pronunciar',
+    conocimiento: 'Conciencia fonológica, sonidos de las vocales, rimas infantiles',
+    contexto: 'Juegos de palabras, canciones infantiles y relatos orales',
+    nivelCognitivo: 'Preoperacional / Expresión Oral'
+  },
+  {
+    codigo: 'CS.1.1.1',
+    subnivel: 'preparatoria',
+    area: 'ciencias_sociales',
+    titulo: 'Identidad personal, esquema corporal y autovaloración',
+    descripcion: 'CS.1.1.1. Reconocer que es un ser que siente, piensa, opina y tiene necesidades, en función del conocimiento de su identidad, su nombre y su esquema corporal.',
+    criterioEvaluacion: 'CE.CS.1.1. Reconoce y valora su propia identidad y pertenencia familiar.',
+    indicadorEvaluacion: 'I.CS.1.1.1. Expresa sus datos personales, preferencias y emociones reconociéndose como ser único.',
+    habilidad: 'Reconocer, verbalizar y autovalorar',
+    conocimiento: 'Identidad personal, género, nombre y esquema corporal',
+    contexto: 'Espejos del aula, autorretratos y círculo de conversación matutino',
+    nivelCognitivo: 'Preoperacional / Identidad y Autonomía'
+  },
+  {
+    codigo: 'CS.1.2.4',
+    subnivel: 'preparatoria',
+    area: 'ciencias_sociales',
+    titulo: 'Pautas de convivencia pacífica y normas en el aula',
+    descripcion: 'CS.1.2.4. Discriminar modelos positivos y negativos de comportamiento de sus pares y adultos en su entorno escolar y familiar, y adoptar pautas de convivencia armónica.',
+    criterioEvaluacion: 'CE.CS.1.2. Practica normas de respeto y convivencia armónica en su comunidad.',
+    indicadorEvaluacion: 'I.CS.1.2.1. Participa en juegos colectivos respetando turnos y acuerdos de convivencia.',
+    habilidad: 'Discriminar, cooperar y respetar',
+    conocimiento: 'Normas del aula, turnos de habla, resolución pacífica de desacuerdos',
+    contexto: 'Juegos cooperativos y acuerdos del aula',
+    nivelCognitivo: 'Preoperacional / Convivencia'
+  },
+  {
+    codigo: 'CN.1.3.1',
+    subnivel: 'preparatoria',
+    area: 'ciencias_naturales',
+    titulo: 'Diferenciación entre seres vivos y elementos inertes',
+    descripcion: 'CN.1.3.1. Observar y diferenciar entre los seres vivos y la materia inerte (natural y artificial) del entorno a partir de sus características físicas.',
+    criterioEvaluacion: 'CE.CN.1.1. Explica las características de los seres vivos frente a la materia inerte.',
+    indicadorEvaluacion: 'I.CN.1.1.1. Identifica seres vivos del entorno y reconoce sus necesidades vitales básicas.',
+    habilidad: 'Observar, comparar y clasificar',
+    conocimiento: 'Seres vivos (plantas, animales, humanos) vs materia inerte (piedras, juguetes)',
+    contexto: 'Patio escolar, jardín botánico y muestras de la naturaleza',
+    nivelCognitivo: 'Preoperacional / Exploración Sensorial'
+  },
+  {
+    codigo: 'ECA.1.1.2',
+    subnivel: 'preparatoria',
+    area: 'educacion_artistica',
+    titulo: 'Expresión plástica con plastilina, dactilopintura y garabateo',
+    descripcion: 'ECA.1.1.2. Expresar la propia identidad y emociones mediante el dibujo, el modelado y la dactilopintura con materiales diversos del entorno.',
+    criterioEvaluacion: 'CE.ECA.1.1. Manifiesta curiosidad e interés por la exploración plástica.',
+    indicadorEvaluacion: 'I.ECA.1.1.1. Utiliza materiales moldeables para representar libremente su entorno.',
+    habilidad: 'Modelar, trazar y estampar',
+    conocimiento: 'Colores primarios, texturas táctiles, modelado en plastilina',
+    contexto: 'Taller de artes del aula y manualidades libres',
+    nivelCognitivo: 'Sensoriomotor / Expresión Plástica'
+  },
+  {
+    codigo: 'EF.1.1.1',
+    subnivel: 'preparatoria',
+    area: 'educacion_fisica',
+    titulo: 'Coordinación motriz global y orientación espacial',
+    descripcion: 'EF.1.1.1. Identificar las partes del cuerpo y las posibilidades motrices individuales y colectivas en juegos sensoriales y de desplazamiento espacial.',
+    criterioEvaluacion: 'CE.EF.1.1. Participa en juegos de desplazamiento y coordinación postural.',
+    indicadorEvaluacion: 'I.EF.1.1.1. Ajusta sus movimientos a consignas espaciales (arriba, abajo, cerca, lejos).',
+    habilidad: 'Desplazarse, saltar y equilibrarse',
+    conocimiento: 'Nociones espaciales, equilibrio dinámico y esquema corporal',
+    contexto: 'Canchas escolares y circuitos psicomotrices',
+    nivelCognitivo: 'Sensoriomotor / Psicomotricidad'
+  },
+  {
+    codigo: 'EFL.1.1.1',
+    subnivel: 'preparatoria',
+    area: 'ingles',
+    titulo: 'Saludos y respuestas a comandos simples en inglés (TPR)',
+    descripcion: 'EFL.1.1.1. Respond to simple greetings (hello, goodbye) and classroom instructions (stand up, sit down) through movement, gestures, and songs.',
+    criterioEvaluacion: 'CE.EFL.1.1. Understand basic classroom greetings and commands.',
+    indicadorEvaluacion: 'I.EFL.1.1.1. Performs physical actions in response to spoken English commands.',
+    habilidad: 'Listen, imitate and respond',
+    conocimiento: 'Basic greetings, numbers 1-5, action verbs (TPR)',
+    contexto: 'Classroom songs and interactive circle time',
+    nivelCognitivo: 'Preoperacional / TPR'
+  },
+
+  // =========================================================================
+  // 2. BÁSICA ELEMENTAL (2.°, 3.°, 4.° EGB)
+  // =========================================================================
   {
     codigo: 'M.2.1.12',
     subnivel: 'elemental',
@@ -64,8 +189,6 @@ export const DCD_DATABASE = [
     contexto: 'Objetos y espacios del aula',
     nivelCognitivo: 'Aplicación'
   },
-
-  // --- BÁSICA ELEMENTAL: LENGUA Y LITERATURA ---
   {
     codigo: 'LL.2.3.5',
     subnivel: 'elemental',
@@ -92,12 +215,36 @@ export const DCD_DATABASE = [
     contexto: 'Experiencias personales y vivencias',
     nivelCognitivo: 'Aplicación / Creación'
   },
-
-  // --- BÁSICA ELEMENTAL: BIOLOGÍA ---
+  {
+    codigo: 'CS.2.1.1',
+    subnivel: 'elemental',
+    area: 'ciencias_sociales',
+    titulo: 'La familia como núcleo de cuidado y diversidad de estructuras familiares',
+    descripcion: 'CS.2.1.1. Reconocer a la familia como espacio primigenio de comunidad, apoyo y cuidado mutuo, valorando la diversidad de estructuras familiares y la corresponsabilidad en el hogar.',
+    criterioEvaluacion: 'CE.CS.2.1. Identifica los diferentes tipos de familia y su rol fundamental en la comunidad.',
+    indicadorEvaluacion: 'I.CS.2.1.1. Describe los diferentes tipos de familia y reflexiona sobre los derechos y responsabilidades familiares.',
+    habilidad: 'Reconocer, describir y valorar',
+    conocimiento: 'Tipos de familias, roles del hogar, árbol genealógico',
+    contexto: 'Entorno familiar y vivencias del estudiante',
+    nivelCognitivo: 'Comprensión / Valoración'
+  },
+  {
+    codigo: 'CS.2.1.4',
+    subnivel: 'elemental',
+    area: 'ciencias_sociales',
+    titulo: 'La escuela: historia, dependencias y normas de convivencia institucional',
+    descripcion: 'CS.2.1.4. Reconocer la importancia de la escuela a partir de la investigación de sus orígenes fundacionales, funciones, servicios y normas de convivencia democrática.',
+    criterioEvaluacion: 'CE.CS.2.2. Examina los vínculos de la escuela con la comunidad y sus normas de convivencia.',
+    indicadorEvaluacion: 'I.CS.2.2.1. Infiere que la ubicación y normas de la escuela contribuyen a la convivencia armónica.',
+    habilidad: 'Investigar, reconocer y aplicar',
+    conocimiento: 'Institución escolar, dependencias, acuerdos de convivencia escolar',
+    contexto: 'Espacio escolar y comunidad educativa',
+    nivelCognitivo: 'Comprensión / Aplicación'
+  },
   {
     codigo: 'CN.2.1.4',
     subnivel: 'elemental',
-    area: 'biologia',
+    area: 'ciencias_naturales',
     titulo: 'Clasificación de animales vertebrados e invertebrados',
     descripcion: 'CN.2.1.4. Observar y describir las características de los animales y clasificarlos en vertebrados e invertebrados, por la presencia o ausencia de una columna vertebral y esqueleto interno.',
     criterioEvaluacion: 'CE.CN.2.2. Aprecia la diversidad de plantas y animales en función de la comprensión de sus características y funciones vitales.',
@@ -107,8 +254,49 @@ export const DCD_DATABASE = [
     contexto: 'Entorno natural local y muestras biológicas',
     nivelCognitivo: 'Comprensión / Clasificación'
   },
+  {
+    codigo: 'ECA.2.2.4',
+    subnivel: 'elemental',
+    area: 'educacion_artistica',
+    titulo: 'Elementos plásticos visuales (línea, color y textura)',
+    descripcion: 'ECA.2.2.4. Describir los elementos plásticos presentes en el entorno natural y artificial (líneas, texturas, colores primarios y secundarios) utilizándolos en composiciones creativas propias.',
+    criterioEvaluacion: 'CE.ECA.2.2. Identifica y utiliza elementos plásticos en representaciones visuales.',
+    indicadorEvaluacion: 'I.ECA.2.2.1. Combina líneas, formas y texturas en la elaboración de dibujos expresivos.',
+    habilidad: 'Observar, mezclar y componer',
+    conocimiento: 'Colores secundarios, texturas táctiles, figuras bidimensionales',
+    contexto: 'Naturaleza del patio y materiales reciclados',
+    nivelCognitivo: 'Creación / Expresión Visual'
+  },
+  {
+    codigo: 'EF.2.1.1',
+    subnivel: 'elemental',
+    area: 'educacion_fisica',
+    titulo: 'Juegos populares, tradicionales y cooperativos',
+    descripcion: 'EF.2.1.1. Identificar las características, objetivos y roles de los participantes en diferentes tipos de juegos populares y tradicionales para participar de manera segura e inclusiva.',
+    criterioEvaluacion: 'CE.EF.2.1. Participa colectivamente en juegos populares y de persecución.',
+    indicadorEvaluacion: 'I.EF.2.1.1. Aplica reglas básicas y acuerdos para jugar en equipo.',
+    habilidad: 'Cooperar, correr y coordinar',
+    conocimiento: 'Juegos tradicionales (rayuela, trompo, ensacados), trabajo cooperativo',
+    contexto: 'Patio de recreo y festivales lúdicos',
+    nivelCognitivo: 'Operaciones Concretas / Juego Colectivo'
+  },
+  {
+    codigo: 'EFL.2.1.1',
+    subnivel: 'elemental',
+    area: 'ingles',
+    titulo: 'Información personal básica en inglés (nombre, edad, emociones)',
+    descripcion: 'EFL.2.1.1. Exchange basic personal information (name, age, feelings, family members) using simple standard phrases and visual cues.',
+    criterioEvaluacion: 'CE.EFL.2.1. Formulate basic statements about identity and feelings.',
+    indicadorEvaluacion: 'I.EFL.2.1.1. Asks and answers simple questions about personal details.',
+    habilidad: 'Exchange information, pronounce and recognize',
+    conocimiento: 'Greetings, personal pronouns (I, you), feelings (happy, sad, tired)',
+    contexto: 'Roleplay activities, dialog cards and flashcards',
+    nivelCognitivo: 'Comprensión / Diálogo Básico'
+  },
 
-  // --- BÁSICA MEDIA: MATEMÁTICA ---
+  // =========================================================================
+  // 3. BÁSICA MEDIA (5.°, 6.°, 7.° EGB)
+  // =========================================================================
   {
     codigo: 'M.3.1.28',
     subnivel: 'media',
@@ -126,7 +314,7 @@ export const DCD_DATABASE = [
     codigo: 'M.3.1.33',
     subnivel: 'media',
     area: 'matematica',
-    titulo: 'Lectura e interpretación de tablas y diagramas de barras circulares',
+    titulo: 'Lectura e interpretación de tablas y diagramas estadísticos',
     descripcion: 'M.3.1.33. Leer e interpretar información contenida en tablas de frecuencias, diagramas de barras, circulares y poligonales para resolver problemas y argumentar conclusiones basadas en datos estadísticos.',
     criterioEvaluacion: 'CE.M.3.10. Emplea programas informáticos para tabular y representar datos estadísticos y calcular medidas de tendencia central.',
     indicadorEvaluacion: 'I.M.3.10.1. Construye e interpreta tablas de frecuencia y gráficos estadísticos para comunicar conclusiones.',
@@ -135,8 +323,6 @@ export const DCD_DATABASE = [
     contexto: 'Encuestas escolares y temas ambientales',
     nivelCognitivo: 'Análisis / Evaluación'
   },
-
-  // --- BÁSICA MEDIA: LENGUA Y LITERATURA ---
   {
     codigo: 'LL.3.3.2',
     subnivel: 'media',
@@ -150,12 +336,10 @@ export const DCD_DATABASE = [
     contexto: 'Artículos de divulgación infantil y textos enciclopédicos',
     nivelCognitivo: 'Análisis'
   },
-
-  // --- BÁSICA MEDIA: HISTORIA ---
   {
     codigo: 'CS.3.1.9',
     subnivel: 'media',
-    area: 'historia',
+    area: 'ciencias_sociales',
     titulo: 'Pueblos originarios y diversidad cultural del Ecuador',
     descripcion: 'CS.3.1.9. Identificar a los conquistadores y primeros colonizadores, sus características y los conflictos con los pueblos indígenas; y destacar los aportes culturales de los pueblos originarios y afrodescendientes.',
     criterioEvaluacion: 'CE.CS.3.1. Analiza la evolución de la organización económica y política del país desde sus orígenes prehispánicos hasta la época colonial.',
@@ -165,8 +349,62 @@ export const DCD_DATABASE = [
     contexto: 'Identidad nacional y patrimonio histórico',
     nivelCognitivo: 'Comprensión / Valoración'
   },
+  {
+    codigo: 'CN.3.1.1',
+    subnivel: 'media',
+    area: 'ciencias_naturales',
+    titulo: 'Estructura celular animal y vegetal y funciones vitales',
+    descripcion: 'CN.3.1.1. Indagar, con uso del microscopio o de las TIC, la estructura y función de las células animales y vegetales, y clasificarlas por sus características morfológicas y funcionales.',
+    criterioEvaluacion: 'CE.CN.3.1. Explica la importancia de la célula como unidad estructural de la vida.',
+    indicadorEvaluacion: 'I.CN.3.1.1. Compara las partes y organelos de la célula vegetal y animal.',
+    habilidad: 'Indagar, observar microscópicamente y comparar',
+    conocimiento: 'Célula animal vs vegetal, núcleo, membrana, cloroplastos',
+    contexto: 'Laboratorio de ciencias, muestras vegetales y simuladores virtuales',
+    nivelCognitivo: 'Análisis / Operaciones Concretas'
+  },
+  {
+    codigo: 'ECA.3.1.3',
+    subnivel: 'media',
+    area: 'educacion_artistica',
+    titulo: 'Patrimonio artístico y cultural ecuatoriano en maquetas y dibujos',
+    descripcion: 'ECA.3.1.3. Describir algunas características del patrimonio cultural y artístico del entorno próximo y elaborar representaciones gráficas y maquetas arquitectónicas.',
+    criterioEvaluacion: 'CE.ECA.3.1. Reconoce y recrea manifestaciones del patrimonio cultural.',
+    indicadorEvaluacion: 'I.ECA.3.1.1. Construye maquetas o dibujos que representan el patrimonio arquitectónico.',
+    habilidad: 'Investigar, modelar y valorar',
+    conocimiento: 'Patrimonio histórico local, técnicas tridimensionales, perspectiva básica',
+    contexto: 'Centros históricos y museos comunitarios',
+    nivelCognitivo: 'Aplicación / Creación'
+  },
+  {
+    codigo: 'EF.3.2.2',
+    subnivel: 'media',
+    area: 'educacion_fisica',
+    titulo: 'Secuencias gimnásticas y destrezas acrobáticas con seguridad',
+    descripcion: 'EF.3.2.2. Crear secuencias gimnásticas individuales y colectivas con destrezas y acrobacias básicas reconociendo las precauciones corporales y el cuidado del compañero.',
+    criterioEvaluacion: 'CE.EF.3.2. Diseña secuencias corporales expresivas y gimnásticas.',
+    indicadorEvaluacion: 'I.EF.3.2.1. Construye coreografías gimnásticas coordinando con sus compañeros.',
+    habilidad: 'Coordinar, equilibrar y trabajar en equipo',
+    conocimiento: 'Rol adelante, parada de manos con apoyo, pirámides humanas sencillas',
+    contexto: 'Gimnasio escolar y colchonetas de seguridad',
+    nivelCognitivo: 'Aplicación / Coordinación Dinámica'
+  },
+  {
+    codigo: 'EFL.3.2.3',
+    subnivel: 'media',
+    area: 'ingles',
+    titulo: 'Comprensión de rutinas cotidianas en diálogos en inglés',
+    descripcion: 'EFL.3.2.3. Record key information from short, spoken dialogues about familiar everyday routines, telling time, and hobbies.',
+    criterioEvaluacion: 'CE.EFL.3.2. Extract specific information from spoken passages.',
+    indicadorEvaluacion: 'I.EFL.3.2.1. Identifies key vocabulary related to daily routines and time.',
+    habilidad: 'Listen for details, match and write',
+    conocimiento: 'Daily routines (wake up, go to school), present simple, clock times',
+    contexto: 'Audio dialogues, schedules and digital interactive games',
+    nivelCognitivo: 'Comprensión Auditiva'
+  },
 
-  // --- BÁSICA SUPERIOR: MATEMÁTICA ---
+  // =========================================================================
+  // 4. BÁSICA SUPERIOR (8.°, 9.°, 10.° EGB)
+  // =========================================================================
   {
     codigo: 'M.4.1.20',
     subnivel: 'superior',
@@ -180,8 +418,19 @@ export const DCD_DATABASE = [
     contexto: 'Resolución de problemas de balance y finanzas cotidianas',
     nivelCognitivo: 'Aplicación / Abstracción'
   },
-
-  // --- BÁSICA SUPERIOR: LENGUA Y LITERATURA ---
+  {
+    codigo: 'M.4.2.5',
+    subnivel: 'superior',
+    area: 'matematica',
+    titulo: 'Teorema de Thales y semejanza de triángulos',
+    descripcion: 'M.4.2.5. Definir e identificar figuras geométricas semejantes de acuerdo con las medidas de los ángulos y la razón de proporcionalidad de sus lados (teorema de Thales).',
+    criterioEvaluacion: 'CE.M.4.5. Aplica criterios de semejanza y teoremas geométricos en la resolución de problemas.',
+    indicadorEvaluacion: 'I.M.4.5.1. Resuelve problemas de cálculo de alturas inaccesibles aplicando el teorema de Thales.',
+    habilidad: 'Calcular, deducir y comprobar',
+    conocimiento: 'Semejanza, escalas, proporciones, teorema de Thales',
+    contexto: 'Medición de sombras en el patio escolar y planos arquitectónicos',
+    nivelCognitivo: 'Operaciones Concretas a Formales'
+  },
   {
     codigo: 'LL.4.3.4',
     subnivel: 'superior',
@@ -195,12 +444,10 @@ export const DCD_DATABASE = [
     contexto: 'Debates actuales, medios digitales y redes sociales',
     nivelCognitivo: 'Evaluación crítica'
   },
-
-  // --- BÁSICA SUPERIOR: HISTORIA ---
   {
     codigo: 'CS.4.1.16',
     subnivel: 'superior',
-    area: 'historia',
+    area: 'ciencias_sociales',
     titulo: 'Procesos de independencia y pensamiento libertario en América',
     descripcion: 'CS.4.1.16. Analizar el origen y desarrollo de los movimientos libertarios de América Latina y destacar las figuras históricas y populares que gestaron la independencia republicana.',
     criterioEvaluacion: 'CE.CS.4.2. Analiza el origen de las sociedades latinoamericanas y los procesos de independencia nacional.',
@@ -210,13 +457,67 @@ export const DCD_DATABASE = [
     contexto: 'Identidad latinoamericana y soberanía',
     nivelCognitivo: 'Análisis / Comprensión'
   },
+  {
+    codigo: 'CN.4.1.3',
+    subnivel: 'superior',
+    area: 'ciencias_naturales',
+    titulo: 'Sistemas del cuerpo humano (digestivo, circulatorio, respiratorio)',
+    descripcion: 'CN.4.1.3. Indagar, con uso del microscopio o de las TIC, la estructura y funciones de los sistemas digestivo, respiratorio, circulatorio y excretor, y explicar su coordinación en el metabolismo.',
+    criterioEvaluacion: 'CE.CN.4.2. Relaciona la anatomía y fisiología de los sistemas humanos con la salud integral.',
+    indicadorEvaluacion: 'I.CN.4.2.1. Determina la interdependencia entre sistemas para la nutrición celular.',
+    habilidad: 'Modelar, explicar y relacionar',
+    conocimiento: 'Fisiología humana, nutrición celular, hábitos de vida saludable',
+    contexto: 'Estilos de vida, prevención de enfermedades metabólicas y maquetas biológicas',
+    nivelCognitivo: 'Análisis / Comprensión de Sistemas'
+  },
+  {
+    codigo: 'ECA.4.1.5',
+    subnivel: 'superior',
+    area: 'educacion_artistica',
+    titulo: 'Línea de tiempo visual del arte ecuatoriano e indigenista',
+    descripcion: 'ECA.4.1.5. Elaborar una línea de tiempo o mapa mental con imágenes y textos que resuman momentos clave de la historia del arte ecuatoriano (Escuela Quiteña, Indigenismo).',
+    criterioEvaluacion: 'CE.ECA.4.1. Reconoce y valora los hitos del arte plástico nacional.',
+    indicadorEvaluacion: 'I.ECA.4.1.1. Explica la relevancia estética del indigenismo en la plástica ecuatoriana.',
+    habilidad: 'Investigar, sintetizar y diseñar',
+    conocimiento: 'Oswaldo Guayasamín, Eduardo Kingman, Escuela Quiteña, arte contemporáneo',
+    contexto: 'Galerías digitales y exposiciones escolares',
+    nivelCognitivo: 'Análisis / Síntesis Visual'
+  },
+  {
+    codigo: 'EF.4.1.1',
+    subnivel: 'superior',
+    area: 'educacion_fisica',
+    titulo: 'Estrategias tácticas y reglas en deportes colectivos inclusivos',
+    descripcion: 'EF.4.1.1. Participar en diferentes categorías de deportes y juegos cooperativos acordando reglas, tácticas ofensivas y defensivas, y respetando la diversidad corporal.',
+    criterioEvaluacion: 'CE.EF.4.1. Aplica tácticas y juego limpio en deportes colectivos.',
+    indicadorEvaluacion: 'I.EF.4.1.1. Propone soluciones tácticas inclusivas en situaciones reales de juego.',
+    habilidad: 'Planificar, cooperar y resolver motrizmente',
+    conocimiento: 'Tácticas de pase, marcación, juego limpio (Fair Play)',
+    contexto: 'Encuentros deportivos escolares intercursos',
+    nivelCognitivo: 'Transición a Operaciones Formales'
+  },
+  {
+    codigo: 'EFL.4.3.1',
+    subnivel: 'superior',
+    area: 'ingles',
+    titulo: 'Comprensión y redacción de textos argumentativos cortos en inglés',
+    descripcion: 'EFL.4.3.1. Understand the main points of short texts on familiar topics (environment, technology, teenage life) and write simple cohesive paragraphs using connectors.',
+    criterioEvaluacion: 'CE.EFL.4.3. Produce clear paragraphs on personal opinions and social topics.',
+    indicadorEvaluacion: 'I.EFL.4.3.1. Uses linking words (because, although, but) to justify ideas.',
+    habilidad: 'Read critically, argue and write',
+    conocimiento: 'Opinion phrases (I think, In my view), connectors of contrast and reason',
+    contexto: 'Essays, blogs and classroom debates in English',
+    nivelCognitivo: 'Producción Escrita / Argumentación'
+  },
 
-  // --- BACHILLERATO: MATEMÁTICA ---
+  // =========================================================================
+  // 5. BACHILLERATO GENERAL UNIFICADO (1.°, 2.°, 3.° BGU)
+  // =========================================================================
   {
     codigo: 'M.5.1.23',
     subnivel: 'bachillerato',
     area: 'matematica',
-    titulo: 'Modelado y análisis de funciones polinomiales y cuadráticas',
+    titulo: 'Modelado y análisis de funciones cuadráticas y polinomiales',
     descripcion: 'M.5.1.23. Reconocer funciones polinomiales de grado 2, identificar sus propiedades (concavidad, vértice, raíces, eje de simetría) y graficar de manera manual y mediante software dinámico para resolver problemas de optimización.',
     criterioEvaluacion: 'CE.M.5.3. Opera y emplea funciones reales para modelar y resolver situaciones de la ciencia y la cotidianidad.',
     indicadorEvaluacion: 'I.M.5.3.1. Grafica funciones reales analizando dominio, recorrido, monotonía y puntos extremos.',
@@ -225,13 +526,11 @@ export const DCD_DATABASE = [
     contexto: 'Trayectorias físicas, ingresos y costos',
     nivelCognitivo: 'Operaciones Formales / Modelado Matemático'
   },
-
-  // --- BACHILLERATO: LENGUA Y LITERATURA ---
   {
     codigo: 'LL.5.4.1',
     subnivel: 'bachillerato',
     area: 'lengua',
-    titulo: 'Construcción de ensayos académicos con citas APA y rigor argumentativo',
+    titulo: 'Construcción de ensayos académicos con rigor argumentativo',
     descripcion: 'LL.5.4.1. Construir un texto argumentativo seleccionando el tema, formulando la tesis, sustentándola con argumentos sólidos y citas bibliográficas rigurosas, y redactando una conclusión reflexiva.',
     criterioEvaluacion: 'CE.LL.5.6. Aplica el proceso de escritura en la construcción de textos académicos y argumentativos.',
     indicadorEvaluacion: 'I.LL.5.6.1. Aplica el proceso de producción de textos en la escritura de ensayos argumentativos estructurados.',
@@ -240,13 +539,11 @@ export const DCD_DATABASE = [
     contexto: 'Investigación académica y debate ciudadano',
     nivelCognitivo: 'Creación / Evaluación'
   },
-
-  // --- BACHILLERATO: HISTORIA ---
   {
     codigo: 'CS.H.5.1.3',
     subnivel: 'bachillerato',
     area: 'historia',
-    titulo: 'Aportes culturales de las civilizaciones fluviales de la Antigüedad',
+    titulo: 'Aportes de las primeras civilizaciones fluviales de la Antigüedad',
     descripcion: 'CS.H.5.1.3. Explicar y valorar los grandes aportes de las culturas de Mesopotamia, Egipto, India y China a la agricultura, escritura, arquitectura, comercio y organización jurídica de la humanidad.',
     criterioEvaluacion: 'CE.CS.H.5.1. Analiza y contrasta las características de las primeras civilizaciones históricas y su influencia en el mundo contemporáneo.',
     indicadorEvaluacion: 'I.CS.H.5.1.1. Contrasta los aportes de las civilizaciones de Oriente y Occidente valorando su legado cultural universal.',
@@ -255,53 +552,6 @@ export const DCD_DATABASE = [
     contexto: 'Patrimonio de la humanidad y evolución social',
     nivelCognitivo: 'Análisis / Comprensión'
   },
-
-  // --- BACHILLERATO: FÍSICA ---
-  {
-    codigo: 'CN.F.5.1.1',
-    subnivel: 'bachillerato',
-    area: 'fisica',
-    titulo: 'Movimiento rectilíneo uniforme (MRU) y uniformemente variado (MRUV)',
-    descripcion: 'CN.F.5.1.1. Determinar la posición y el desplazamiento de un objeto considerando la velocidad y aceleración vectoriales en dos dimensiones, en situaciones de MRU y MRUV mediante gráficas y simuladores interactivos.',
-    criterioEvaluacion: 'CE.CN.F.5.1. Obtiene magnitudes cinemáticas del MRU y MRUV a partir de tablas y gráficas de movimiento.',
-    indicadorEvaluacion: 'I.CN.F.5.1.1. Determina magnitudes cinemáticas del movimiento rectilíneo en una y dos dimensiones analizando tablas y gráficos.',
-    habilidad: 'Determinar, graficar y modelar cinemáticamente',
-    conocimiento: 'MRU, MRUV, velocidad, aceleración, gráficas posición-tiempo',
-    contexto: 'Tránsito vial, trayectorias deportivas y física aplicada',
-    nivelCognitivo: 'Aplicación / Análisis'
-  },
-
-  // --- BACHILLERATO: QUÍMICA ---
-  {
-    codigo: 'CN.Q.5.1.2',
-    subnivel: 'bachillerato',
-    area: 'quimica',
-    titulo: 'Tabla periódica, configuración electrónica y enlaces químicos',
-    descripcion: 'CN.Q.5.1.2. Examinar las leyes que rigen el comportamiento de los elementos químicos en la tabla periódica, su configuración electrónica y la formación de enlaces iónicos y covalentes para comprender las propiedades de la materia.',
-    criterioEvaluacion: 'CE.CN.Q.5.2. Explica la estructura del átomo y la formación de enlaces químicos con base en la tabla periódica.',
-    indicadorEvaluacion: 'I.CN.Q.5.2.1. Analiza la estructura electrónica de los átomos y predice el tipo de enlace químico que formarán.',
-    habilidad: 'Examinar, predecir y representar',
-    conocimiento: 'Tabla periódica, electrones de valencia, enlaces iónicos y covalentes',
-    contexto: 'Compuestos del hogar, minerales y laboratorio químico',
-    nivelCognitivo: 'Comprensión / Modelado'
-  },
-
-  // --- BACHILLERATO: BIOLOGÍA ---
-  {
-    codigo: 'CN.B.5.1.1',
-    subnivel: 'bachillerato',
-    area: 'biologia',
-    titulo: 'Biomoléculas orgánicas y funciones celulares vitales',
-    descripcion: 'CN.B.5.1.1. Indagar los patrones de organización de las biomoléculas orgánicas (glúcidos, lípidos, proteínas y ácidos nucleicos) y relacionar su estructura química con las funciones celulares de nutrición, transporte y reproducción genética.',
-    criterioEvaluacion: 'CE.CN.B.5.1. Argumenta el origen de la vida y la importancia de las biomoléculas en el mantenimiento de la célula viva.',
-    indicadorEvaluacion: 'I.CN.B.5.1.1. Explica la importancia de las biomoléculas como base estructural y funcional de los seres vivos.',
-    habilidad: 'Indagar, relacionar y argumentar',
-    conocimiento: 'Biomoléculas (carbohidratos, lípidos, proteínas, ADN/ARN), metabolismo celular',
-    contexto: 'Salud, nutrición balanceada y biotecnología moderna',
-    nivelCognitivo: 'Análisis / Comprensión'
-  },
-
-  // --- BACHILLERATO: FILOSOFÍA ---
   {
     codigo: 'CS.F.5.1.1',
     subnivel: 'bachillerato',
@@ -315,8 +565,6 @@ export const DCD_DATABASE = [
     contexto: 'Pensamiento crítico y deliberación ciudadana contemporánea',
     nivelCognitivo: 'Análisis / Evaluación'
   },
-
-  // --- BACHILLERATO: EDUCACIÓN PARA LA CIUDADANÍA ---
   {
     codigo: 'CS.EC.5.1.2',
     subnivel: 'bachillerato',
@@ -330,20 +578,83 @@ export const DCD_DATABASE = [
     contexto: 'Convivencia escolar, Estado de derecho y garantías ciudadanas',
     nivelCognitivo: 'Análisis / Valoración'
   },
-
-  // --- PREPARATORIA (1ro EGB) ---
   {
-    codigo: 'M.1.4.14',
-    subnivel: 'preparatoria',
-    area: 'matematica',
-    titulo: 'Conteo y cuantificación de objetos hasta el 10',
-    descripcion: 'M.1.4.14. Identificar cantidades y asociarlas con los numerales del 1 al 10 en material concreto y situaciones lúdicas de la vida cotidiana.',
-    criterioEvaluacion: 'CE.M.1.2. Utiliza el conteo de colecciones de objetos hasta el 10 en situaciones cotidianas.',
-    indicadorEvaluacion: 'I.M.1.2.2. Resuelve situaciones cotidianas que requieren de la comparación y conteo de colecciones de hasta 10 elementos.',
-    habilidad: 'Contar, asociar y discriminar',
-    conocimiento: 'Correspondencia uno a uno, número y cantidad hasta 10',
-    contexto: 'Rincón de juegos y material no estructurado',
-    nivelCognitivo: 'Preoperacional / Simbólico'
+    codigo: 'CN.B.5.1.1',
+    subnivel: 'bachillerato',
+    area: 'biologia',
+    titulo: 'Biomoléculas orgánicas y funciones celulares vitales',
+    descripcion: 'CN.B.5.1.1. Indagar los patrones de organización de las biomoléculas orgánicas (glúcidos, lípidos, proteínas y ácidos nucleicos) y relacionar su estructura química con las funciones celulares de nutrición, transporte y reproducción genética.',
+    criterioEvaluacion: 'CE.CN.B.5.1. Argumenta el origen de la vida y la importancia de las biomoléculas en el mantenimiento de la célula viva.',
+    indicadorEvaluacion: 'I.CN.B.5.1.1. Explica la importancia de las biomoléculas como base estructural y funcional de los seres vivos.',
+    habilidad: 'Indagar, relacionar y argumentar',
+    conocimiento: 'Biomoléculas (carbohidratos, lípidos, proteínas, ADN/ARN), metabolismo celular',
+    contexto: 'Salud, nutrición balanceada y biotecnología moderna',
+    nivelCognitivo: 'Análisis / Comprensión'
+  },
+  {
+    codigo: 'CN.F.5.1.1',
+    subnivel: 'bachillerato',
+    area: 'fisica',
+    titulo: 'Movimiento rectilíneo uniforme (MRU) y variado (MRUV)',
+    descripcion: 'CN.F.5.1.1. Determinar la posición y el desplazamiento de un objeto considerando la velocidad y aceleración vectoriales en dos dimensiones, en situaciones de MRU y MRUV mediante gráficas y simuladores interactivos.',
+    criterioEvaluacion: 'CE.CN.F.5.1. Obtiene magnitudes cinemáticas del MRU y MRUV a partir de tablas y gráficas de movimiento.',
+    indicadorEvaluacion: 'I.CN.F.5.1.1. Determina magnitudes cinemáticas del movimiento rectilíneo en una y dos dimensiones analizando tablas y gráficos.',
+    habilidad: 'Determinar, graficar y modelar cinemáticamente',
+    conocimiento: 'MRU, MRUV, velocidad, aceleración, gráficas posición-tiempo',
+    contexto: 'Tránsito vial, trayectorias deportivas y física aplicada',
+    nivelCognitivo: 'Aplicación / Análisis'
+  },
+  {
+    codigo: 'CN.Q.5.1.2',
+    subnivel: 'bachillerato',
+    area: 'quimica',
+    titulo: 'Tabla periódica, configuración electrónica y enlaces químicos',
+    descripcion: 'CN.Q.5.1.2. Examinar las leyes que rigen el comportamiento de los elementos químicos en la tabla periódica, su configuración electrónica y la formación de enlaces iónicos y covalentes para comprender las propiedades de la materia.',
+    criterioEvaluacion: 'CE.CN.Q.5.2. Explica la estructura del átomo y la formación de enlaces químicos con base en la tabla periódica.',
+    indicadorEvaluacion: 'I.CN.Q.5.2.1. Analiza la estructura electrónica de los átomos y predice el tipo de enlace químico que formarán.',
+    habilidad: 'Examinar, predecir y representar',
+    conocimiento: 'Tabla periódica, electrones de valencia, enlaces iónicos y covalentes',
+    contexto: 'Compuestos del hogar, minerales y laboratorio químico',
+    nivelCognitivo: 'Comprensión / Modelado'
+  },
+  {
+    codigo: 'ECA.5.1.1',
+    subnivel: 'bachillerato',
+    area: 'educacion_artistica',
+    titulo: 'Producciones artísticas contemporáneas y pensamiento crítico',
+    descripcion: 'ECA.5.1.1. Realizar producciones artísticas interdisciplinares (instalaciones, performances, videoarte, fotografía) a partir de temas de relevancia social y ecológica contemporánea.',
+    criterioEvaluacion: 'CE.ECA.5.1. Desarrolla proyectos artísticos interdisciplinarios.',
+    indicadorEvaluacion: 'I.ECA.5.1.1. Crea obras visuales y conceptuales con mensaje transformador.',
+    habilidad: 'Crear, conceptualizar y exponer',
+    conocimiento: 'Arte contemporáneo, videoarte, crítica social a través del arte',
+    contexto: 'Espacio público y muestras culturales juveniles',
+    nivelCognitivo: 'Creación / Operaciones Formales'
+  },
+  {
+    codigo: 'EF.5.1.1',
+    subnivel: 'bachillerato',
+    area: 'educacion_fisica',
+    titulo: 'Acondicionamiento físico regular y salud cardiovascular',
+    descripcion: 'EF.5.1.1. Reconocer los beneficios de la actividad física regular y autónoma para la salud postural, cardiovascular y el bienestar mental, diseñando planes personales de ejercicio.',
+    criterioEvaluacion: 'CE.EF.5.1. Diseña y ejecuta planes personales de acondicionamiento físico.',
+    indicadorEvaluacion: 'I.EF.5.1.1. Monitorea su frecuencia cardíaca y adapta cargas de entrenamiento.',
+    habilidad: 'Planificar, evaluar y autogestionar',
+    conocimiento: 'Entrenamiento aeróbico, frecuencia cardíaca, higiene postural',
+    contexto: 'Estilo de vida saludable y prevención del sedentarismo',
+    nivelCognitivo: 'Autonomía / Valoración'
+  },
+  {
+    codigo: 'EFL.5.3.1',
+    subnivel: 'bachillerato',
+    area: 'ingles',
+    titulo: 'Ensayos y discursos argumentativos en inglés (B1/B2)',
+    descripcion: 'EFL.5.3.1. Produce clear, detailed academic texts on a wide range of subjects, explaining a viewpoint on a topical issue giving advantages and disadvantages of various options.',
+    criterioEvaluacion: 'CE.EFL.5.3. Write coherent essays expressing well-argued opinions.',
+    indicadorEvaluacion: 'I.EFL.5.3.1. Composes structured essays using academic discourse markers.',
+    habilidad: 'Synthesize, argue and compose academically',
+    conocimiento: 'Academic transitions (furthermore, nevertheless), thesis statements',
+    contexto: 'University prep essays and global citizenship debates',
+    nivelCognitivo: 'Producción Formal / Nivel B1+'
   }
 ];
 

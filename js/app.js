@@ -194,6 +194,8 @@ function updateAreasOptions() {
   elements.selectArea.innerHTML = areasDisponibles.map(a => `
     <option value="${a.id}" ${a.id === state.currentArea ? 'selected' : ''}>${a.icon} ${a.name}</option>
   `).join('');
+
+  elements.selectArea.value = state.currentArea;
 }
 
 function updateDCDOptions() {
@@ -204,18 +206,24 @@ function updateDCDOptions() {
       <option value="${d.codigo}" ${index === 0 ? 'selected' : ''}>[${d.codigo}] ${d.titulo}</option>
     `).join('');
     state.currentDcd = filtered[0];
+    state.isCustomDcd = false;
+    elements.containerCustomDcd.style.display = 'none';
+    elements.labelToggleCustom.textContent = '+ Usar DCD personalizada';
   } else {
-    // Si no hay DCD específica para esa combinación, mostrar todas las del subnivel o permitir personalizada
-    const anyInSubnivel = allDCDs.filter(d => d.subnivel === state.currentSubnivel);
-    if (anyInSubnivel.length > 0) {
-      elements.selectDcd.innerHTML = anyInSubnivel.map((d, index) => `
-        <option value="${d.codigo}" ${index === 0 ? 'selected' : ''}>[${d.codigo}] (${d.area}) ${d.titulo}</option>
-      `).join('');
-      state.currentDcd = anyInSubnivel[0];
-    } else {
-      elements.selectDcd.innerHTML = `<option value="">Ingresar DCD personalizada...</option>`;
-      state.currentDcd = allDCDs[0];
-    }
+    // Si no hay DCD específica para esa combinación exacta, NUNCA mezclar con otras materias
+    const areaObj = AREAS.find(a => a.id === state.currentArea) || { name: 'esta asignatura' };
+    elements.selectDcd.innerHTML = `<option value="">+ Ingresar DCD personalizada para ${areaObj.name}...</option>`;
+    state.currentDcd = {
+      codigo: 'DCD.MANUAL',
+      subnivel: state.currentSubnivel,
+      area: state.currentArea,
+      titulo: `Destreza de ${areaObj.name}`,
+      descripcion: `Haz clic en "+ Usar DCD personalizada" arriba para redactar o pegar la destreza de ${areaObj.name}.`,
+      habilidad: 'A definir por el docente',
+      conocimiento: 'Contenido específico adaptado',
+      criterioEvaluacion: 'Según planificación docente',
+      indicadorEvaluacion: 'Según planificación docente'
+    };
   }
 
   updateDCDPreview();
@@ -469,11 +477,11 @@ function cargarCasoPreset(casoId) {
       elements.selectSubnivel.value = 'elemental';
       state.currentSubnivel = 'elemental';
       updateAreasOptions();
-      elements.selectArea.value = 'biologia';
-      state.currentArea = 'biologia';
+      elements.selectArea.value = 'ciencias_naturales';
+      state.currentArea = 'ciencias_naturales';
       updateDCDOptions();
       elements.selectDcd.value = 'CN.2.1.4';
-      state.currentDcd = DCD_DATABASE.find(d => d.codigo === 'CN.2.1.4');
+      state.currentDcd = allDCDs.find(d => d.codigo === 'CN.2.1.4') || DCD_DATABASE.find(d => d.codigo === 'CN.2.1.4');
       elements.selectPerfil.value = 'tea';
       seleccionarGrado(2);
       elements.selectApoyo.value = 'Medio';
@@ -490,7 +498,7 @@ function cargarCasoPreset(casoId) {
       state.currentArea = 'lengua';
       updateDCDOptions();
       elements.selectDcd.value = 'LL.4.3.4';
-      state.currentDcd = DCD_DATABASE.find(d => d.codigo === 'LL.4.3.4');
+      state.currentDcd = allDCDs.find(d => d.codigo === 'LL.4.3.4') || DCD_DATABASE.find(d => d.codigo === 'LL.4.3.4');
       elements.selectPerfil.value = 'discapacidad_intelectual_leve';
       seleccionarGrado(3);
       elements.selectApoyo.value = 'Alto';
@@ -507,7 +515,7 @@ function cargarCasoPreset(casoId) {
       state.currentArea = 'matematica';
       updateDCDOptions();
       elements.selectDcd.value = 'M.3.1.28';
-      state.currentDcd = DCD_DATABASE.find(d => d.codigo === 'M.3.1.28');
+      state.currentDcd = allDCDs.find(d => d.codigo === 'M.3.1.28') || DCD_DATABASE.find(d => d.codigo === 'M.3.1.28');
       elements.selectPerfil.value = 'discalculia';
       seleccionarGrado(2);
       elements.selectApoyo.value = 'Medio';
@@ -520,11 +528,11 @@ function cargarCasoPreset(casoId) {
       elements.selectSubnivel.value = 'superior';
       state.currentSubnivel = 'superior';
       updateAreasOptions();
-      elements.selectArea.value = 'historia';
-      state.currentArea = 'historia';
+      elements.selectArea.value = 'ciencias_sociales';
+      state.currentArea = 'ciencias_sociales';
       updateDCDOptions();
       elements.selectDcd.value = 'CS.4.1.16';
-      state.currentDcd = DCD_DATABASE.find(d => d.codigo === 'CS.4.1.16');
+      state.currentDcd = allDCDs.find(d => d.codigo === 'CS.4.1.16') || DCD_DATABASE.find(d => d.codigo === 'CS.4.1.16');
       elements.selectPerfil.value = 'altas_capacidades';
       seleccionarGrado(1);
       elements.selectApoyo.value = 'Bajo';
