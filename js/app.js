@@ -138,6 +138,15 @@ function initTheme() {
   updateThemeIcon(savedTheme);
 }
 
+function toggleTheme() {
+  const isDark = document.body.classList.contains('theme-dark');
+  const nextTheme = isDark ? 'theme-light' : 'theme-dark';
+  document.body.className = nextTheme;
+  localStorage.setItem('adaptadiac_theme', nextTheme);
+  updateThemeIcon(nextTheme);
+  console.log(`[AdaptaDIAC] Tema cambiado a: ${nextTheme}`);
+}
+
 function updateThemeIcon(theme) {
   const sun = document.getElementById('theme-icon-sun');
   const moon = document.getElementById('theme-icon-moon');
