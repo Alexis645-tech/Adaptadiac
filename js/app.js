@@ -17,6 +17,8 @@ const state = {
 };
 
 // Elementos del DOM
+const elements = {};
+
 // Base de datos de DCDs en memoria (inicializada con DCD_DATABASE y extensible dinámicamente)
 let allDCDs = [...DCD_DATABASE];
 
@@ -422,14 +424,6 @@ function activarMobileTab(tabId) {
 function loadInitialData() {
   updatePerfilPreview();
   ejecutarGeneracion();
-}
-
-function toggleTheme() {
-  const isDark = document.body.classList.contains('theme-dark');
-  const newTheme = isDark ? 'theme-light' : 'theme-dark';
-  document.body.className = newTheme;
-  localStorage.setItem('adaptadiac_theme', newTheme);
-  updateThemeIcon(newTheme);
 }
 
 // -------------------------------------------------------------
