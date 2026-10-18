@@ -1,6 +1,6 @@
 {
   "engine": "Deterministic Regex + pdfplumber (Zero AI Dependency)",
-  "total_dcds": 22,
+  "total_dcds": 47,
   "mineduc_source": "https://educacion.gob.ec/curriculo-nacional/",
   "automation": "GitHub Actions Cron Job (Día 1 de cada mes)"
 }
