@@ -17,9 +17,10 @@ const state = {
 };
 
 // Elementos del DOM
-const elements = {};
+// Base de datos de DCDs en memoria (inicializada con DCD_DATABASE y extensible dinámicamente)
+let allDCDs = [...DCD_DATABASE];
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   cacheDOMElements();
   initStorage();
   initTheme();
@@ -28,7 +29,31 @@ document.addEventListener('DOMContentLoaded', () => {
   loadInitialData();
   registerServiceWorker();
   initPWAInstall();
+
+  // Carga asíncrona de la base de datos de DCDs sincronizada por GitHub Actions
+  await loadExternalCurriculumDatabase();
 });
+
+async function loadExternalCurriculumDatabase() {
+  try {
+    const res = await fetch('./data/curriculum-dcd.json', { cache: 'no-cache' });
+    if (res.ok) {
+      const externalDcds = await res.json();
+      if (Array.isArray(externalDcds) && externalDcds.length > 0) {
+        const dcdMap = new Map();
+        // Cargar primero las base
+        allDCDs.forEach(d => { if (d.codigo) dcdMap.set(d.codigo, d); });
+        // Fusionar con las actualizadas del JSON
+        externalDcds.forEach(d => { if (d.codigo) dcdMap.set(d.codigo, d); });
+        allDCDs = Array.from(dcdMap.values());
+        console.log(`[AdaptaDIAC] Base curricular sincronizada: ${allDCDs.length} DCDs disponibles.`);
+        updateDCDOptions();
+      }
+    }
+  } catch (err) {
+    console.log('[AdaptaDIAC] Utilizando base de datos curricular integrada (offline/fallback).');
+  }
+}
 
 function cacheDOMElements() {
   elements.selectSubnivel = document.getElementById('select-subnivel');
@@ -161,7 +186,7 @@ function updateAreasOptions() {
 }
 
 function updateDCDOptions() {
-  const filtered = DCD_DATABASE.filter(d => d.subnivel === state.currentSubnivel && d.area === state.currentArea);
+  const filtered = allDCDs.filter(d => d.subnivel === state.currentSubnivel && d.area === state.currentArea);
 
   if (filtered.length > 0) {
     elements.selectDcd.innerHTML = filtered.map((d, index) => `
@@ -170,7 +195,7 @@ function updateDCDOptions() {
     state.currentDcd = filtered[0];
   } else {
     // Si no hay DCD específica para esa combinación, mostrar todas las del subnivel o permitir personalizada
-    const anyInSubnivel = DCD_DATABASE.filter(d => d.subnivel === state.currentSubnivel);
+    const anyInSubnivel = allDCDs.filter(d => d.subnivel === state.currentSubnivel);
     if (anyInSubnivel.length > 0) {
       elements.selectDcd.innerHTML = anyInSubnivel.map((d, index) => `
         <option value="${d.codigo}" ${index === 0 ? 'selected' : ''}>[${d.codigo}] (${d.area}) ${d.titulo}</option>
@@ -178,7 +203,7 @@ function updateDCDOptions() {
       state.currentDcd = anyInSubnivel[0];
     } else {
       elements.selectDcd.innerHTML = `<option value="">Ingresar DCD personalizada...</option>`;
-      state.currentDcd = DCD_DATABASE[0];
+      state.currentDcd = allDCDs[0];
     }
   }
 
@@ -226,7 +251,7 @@ function setupEventListeners() {
   // Cambio de DCD
   elements.selectDcd.addEventListener('change', (e) => {
     const cod = e.target.value;
-    const found = DCD_DATABASE.find(d => d.codigo === cod);
+    const found = allDCDs.find(d => d.codigo === cod);
     if (found) {
       state.currentDcd = found;
       state.isCustomDcd = false;

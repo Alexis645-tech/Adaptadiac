@@ -1,5 +1,5 @@
 // Service Worker de AdaptaDIAC para funcionamiento Offline en Web y Android
-const CACHE_NAME = 'adaptadiac-v2';
+const CACHE_NAME = 'adaptadiac-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -7,6 +7,7 @@ const ASSETS_TO_CACHE = [
   './js/curriculum-data.js',
   './js/pedagogy-engine.js',
   './js/app.js',
+  './data/curriculum-dcd.json',
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
