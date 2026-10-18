@@ -31,11 +31,10 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f scripts/requirements.txt ]; then pip install -r scripts/requirements.txt; fi
 
-      - name: Ejecutar Robot de Extracción y Estructuración (Gemini + Mineduc)
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - name: Ejecutar Robot Determinista de Extracción (Regex + Tablas PDF)
         run: |
           python scripts/update_curriculum.py
+
 
       - name: Verificar cambios y auto-actualizar repositorio
         run: |
