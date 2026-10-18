@@ -1,5 +1,5 @@
 // Service Worker de AdaptaDIAC para funcionamiento Offline en Web y Android
-const CACHE_NAME = 'adaptadiac-v3';
+const CACHE_NAME = 'adaptadiac-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
