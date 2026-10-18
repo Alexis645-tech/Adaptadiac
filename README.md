@@ -63,22 +63,46 @@ Puedes hacer doble clic en `index.html` o abrirlo con Chrome, Edge o Firefox.
 
 ---
 
+## 🤖 Actualización Automática de Currículos (Robot + GitHub Actions + Gemini)
+
+Para evitar la carga manual de miles de Destrezas con Criterio de Desempeño (DCD):
+1. **Robot de Extracción ([update_curriculum.py](file:///C:/Users/Alexis645/.gemini/antigravity-ide/scratch/adaptadiac/scripts/update_curriculum.py))**:
+   - Monitorea el portal oficial del Ministerio de Educación de Ecuador (`educacion.gob.ec`).
+   - Utiliza la API de Google Gemini (`gemini-1.5-flash`) para estructurar de forma limpia cualquier nuevo PDF o texto curricular en formato JSON validado.
+   - Consolida y deduplica en [curriculum-dcd.json](file:///C:/Users/Alexis645/.gemini/antigravity-ide/scratch/adaptadiac/data/curriculum-dcd.json).
+2. **Cron Job Gratuito en GitHub Actions ([update-curriculum.yml](file:///C:/Users/Alexis645/.gemini/antigravity-ide/scratch/adaptadiac/.github/workflows/update-curriculum.yml))**:
+   - Se ejecuta automáticamente el **día 1 de cada mes** a las 03:00 UTC.
+   - También cuenta con disparador manual (`workflow_dispatch`) para ejecutarlo con 1 clic en cualquier momento.
+   - Hace commit automático de los nuevos JSON al repositorio y actualiza las aplicaciones desplegadas (Vercel, GitHub Pages) sin intervención humana.
+
+---
+
 ## 📂 Estructura del Proyecto
 
 ```
 adaptadiac/
-├── index.html              # Estructura semántica accesible y responsive
+├── .github/
+│   └── workflows/
+│       └── update-curriculum.yml # Flujo cron mensual de GitHub Actions
+├── data/
+│   ├── curriculum-dcd.json       # Base de datos JSON de DCDs actualizada dinámicamente
+│   └── curriculum-manifest.json  # Manifiesto de auditoría y última fecha de sincronización
+├── scripts/
+│   ├── requirements.txt          # Dependencias (requests, beautifulsoup4, pypdf)
+│   └── update_curriculum.py      # Robot crawler con integración a Gemini API
+├── index.html                    # Estructura semántica accesible y responsive
 ├── css/
-│   └── styles.css          # Sistema de diseño, tokens, dark/light y print styles
+│   └── styles.css                # Sistema de diseño, tokens, dark/light y print styles
 ├── js/
-│   ├── curriculum-data.js  # Base de datos curricular nacional, DCDs y perfiles NEE
-│   ├── pedagogy-engine.js  # Motor pedagógico Vygotsky (ZDP) y Piaget (CPA/Estadios)
-│   └── app.js              # Controlador interactivo, eventos, copiado y PWA
-├── manifest.json           # Manifiesto PWA para instalación móvil
-├── sw.js                   # Service Worker para funcionamiento sin conexión
-├── generate-icons.js       # Generador de iconos PNG 192px y 512px
-├── icon-192.png            # Icono de la aplicación (192x192)
-├── icon-512.png            # Icono de la aplicación (512x512)
-├── server.js               # Servidor HTTP local con soporte MIME
-└── README.md               # Documentación técnica y pedagógica
+│   ├── curriculum-data.js        # Base curricular integrada y perfiles NEE
+│   ├── pedagogy-engine.js        # Motor pedagógico Vygotsky (ZDP) y Piaget (CPA/Estadios)
+│   └── app.js                    # Controlador interactivo, cargador dinámico de JSON y PWA
+├── manifest.json                 # Manifiesto PWA para instalación móvil
+├── sw.js                         # Service Worker con caché offline de curriculum-dcd.json
+├── generate-icons.js             # Generador de iconos PNG 192px y 512px
+├── icon-192.png                  # Icono de la aplicación (192x192)
+├── icon-512.png                  # Icono de la aplicación (512x512)
+├── server.js                     # Servidor HTTP local con soporte MIME
+└── README.md                     # Documentación técnica y pedagógica
 ```
+
