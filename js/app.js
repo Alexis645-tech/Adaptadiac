@@ -36,6 +36,7 @@ function cacheDOMElements() {
   elements.selectDcd = document.getElementById('select-dcd');
   elements.selectPerfil = document.getElementById('select-perfil');
   elements.selectPreset = document.getElementById('select-preset');
+  elements.selectPresetMobile = document.getElementById('select-preset-mobile');
   elements.selectApoyo = document.getElementById('select-apoyo');
 
   elements.inputEstudiante = document.getElementById('input-estudiante');
@@ -264,10 +265,20 @@ function setupEventListeners() {
     });
   });
 
-  // Presets selector
-  elements.selectPreset.addEventListener('change', (e) => {
-    cargarCasoPreset(e.target.value);
-  });
+  // Presets selector (escritorio y móvil)
+  if (elements.selectPreset) {
+    elements.selectPreset.addEventListener('change', (e) => {
+      if (elements.selectPresetMobile) elements.selectPresetMobile.value = e.target.value;
+      cargarCasoPreset(e.target.value);
+    });
+  }
+
+  if (elements.selectPresetMobile) {
+    elements.selectPresetMobile.addEventListener('change', (e) => {
+      if (elements.selectPreset) elements.selectPreset.value = e.target.value;
+      cargarCasoPreset(e.target.value);
+    });
+  }
 
   // Generar Adaptación
   elements.btnGenerar.addEventListener('click', () => {

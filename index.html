@@ -88,13 +88,13 @@
         </button>
 
         <!-- Install PWA button -->
-        <button id="btn-install-pwa" class="btn btn-primary btn-sm btn-install-app" style="display: none;">
+        <button id="btn-install-pwa" class="btn btn-primary btn-sm btn-install-app" style="display: none;" title="Instalar como app nativa">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          <span>Instalar App</span>
+          <span class="btn-install-label">Instalar App</span>
         </button>
       </div>
     </div>
@@ -123,6 +123,22 @@
     <aside class="panel-form" id="panel-form">
       <div class="panel-inner">
         
+        <!-- Mobile-Only Quick Preset Selector -->
+        <div class="mobile-preset-wrap" id="mobile-preset-wrap">
+          <label for="select-preset-mobile" class="mobile-preset-label">
+            <span>⚡ Casos Prácticos Rápidos:</span>
+          </label>
+          <select id="select-preset-mobile" class="form-select select-preset-mobile">
+            <option value="" disabled selected>Selecciona un caso de ejemplo...</option>
+            <option value="caso-tdah">Lucas (4to EGB - Mate - TDAH - Grado 2)</option>
+            <option value="caso-dislexia">Sofía (6to EGB - Lengua - Dislexia - Grado 2)</option>
+            <option value="caso-tea">Mateo (3ro EGB - Ciencias - TEA - Grado 2)</option>
+            <option value="caso-intelectual">Camila (8vo EGB - Lengua - Discapacidad Intelectual - Grado 3)</option>
+            <option value="caso-discalculia">David (7mo EGB - Mate - Discalculia - Grado 2)</option>
+            <option value="caso-altas">Valeria (10mo EGB - Sociales - Altas Capacidades - Grado 1)</option>
+          </select>
+        </div>
+
         <!-- Welcome Card & Theory Badge -->
         <div class="card card-theory-intro">
           <div class="theory-badges">
