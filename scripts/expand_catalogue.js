@@ -1,0 +1,967 @@
+const fs = require('fs');
+const path = require('path');
+
+// Catálogo enriquecido y completo de DCDs oficiales del Currículo Nacional Ecuatoriano
+const expandedDCDs = [
+  // ==========================================
+  // PREPARATORIA (1.° EGB)
+  // ==========================================
+  {
+    codigo: "CS.1.1.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Preparatoria",
+    asignatura: "Ciencias Sociales",
+    bloque: "Identidad y autonomía",
+    descripcion: "Reconocer que es un ser integral (cuerpo, mente y emociones) y explorar sus capacidades motoras, afectivas y cognoscitivas."
+  },
+  {
+    codigo: "CS.1.1.2.",
+    area: "Ciencias Sociales",
+    subnivel: "Preparatoria",
+    asignatura: "Ciencias Sociales",
+    bloque: "Identidad y autonomía",
+    descripcion: "Comunicar sus datos personales para reconocer sus nombres y apellidos, edad, teléfono y el lugar donde vive."
+  },
+  {
+    codigo: "CS.1.2.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Preparatoria",
+    asignatura: "Ciencias Sociales",
+    bloque: "Convivencia",
+    descripcion: "Dialogar sobre la historia de la familia compartiendo momentos significativos y reconociendo a sus miembros."
+  },
+  {
+    codigo: "CS.1.3.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Preparatoria",
+    asignatura: "Ciencias Sociales",
+    bloque: "Descubrimiento del entorno",
+    descripcion: "Identificar las dependencias de las viviendas y su ubicación en relación a puntos de referencia del entorno."
+  },
+  {
+    codigo: "M.1.4.1.",
+    area: "Matemática",
+    subnivel: "Preparatoria",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Reconocer los colores primarios: rojo, amarillo y azul; los colores blanco y negro y secundarios en objetos del entorno."
+  },
+  {
+    codigo: "M.1.4.2.",
+    area: "Matemática",
+    subnivel: "Preparatoria",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Describir y reproducir patrones con objetos del entorno por color, forma, tamaño, longitud o con siluetas de figuras geométricas."
+  },
+  {
+    codigo: "M.1.4.14.",
+    area: "Matemática",
+    subnivel: "Preparatoria",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Identificar cantidades y asociarlas con los numerales 1 al 10 y el 0 en secuencias ascendentes y descendentes."
+  },
+  {
+    codigo: "M.1.4.21.",
+    area: "Matemática",
+    subnivel: "Preparatoria",
+    asignatura: "Matemática",
+    bloque: "Geometría y medida",
+    descripcion: "Reconocer figuras geométricas (triángulo, cuadrado, rectángulo y círculo) en objetos del entorno inmediato."
+  },
+  {
+    codigo: "LL.1.5.5.",
+    area: "Lengua y Literatura",
+    subnivel: "Preparatoria",
+    asignatura: "Lengua y Literatura",
+    bloque: "Comunicación oral",
+    descripcion: "Desarrollar la expresión oral en contextos cotidianos usando la conciencia lingüística (semántica, léxica, sintáctica y fonológica)."
+  },
+  {
+    codigo: "LL.1.5.8.",
+    area: "Lengua y Literatura",
+    subnivel: "Preparatoria",
+    asignatura: "Lengua y Literatura",
+    bloque: "Comprensión de textos",
+    descripcion: "Diferenciar entre imagen y texto escrito en diversos materiales del entorno impreso y digital."
+  },
+  {
+    codigo: "LL.1.5.16.",
+    area: "Lengua y Literatura",
+    subnivel: "Preparatoria",
+    asignatura: "Lengua y Literatura",
+    bloque: "Lectura y escritura inicial",
+    descripcion: "Explorar la formación de palabras y oraciones sencillas mediante representaciones pictográficas y fonológicas."
+  },
+  {
+    codigo: "CN.1.1.1.",
+    area: "Ciencias Naturales",
+    subnivel: "Preparatoria",
+    asignatura: "Ciencias Naturales",
+    bloque: "Los seres vivos y su ambiente",
+    descripcion: "Observar y registrar las características de animales y plantas de la localidad mediante los sentidos."
+  },
+  {
+    codigo: "CN.1.1.2.",
+    area: "Ciencias Naturales",
+    subnivel: "Preparatoria",
+    asignatura: "Ciencias Naturales",
+    bloque: "Cuerpo humano y salud",
+    descripcion: "Identificar y describir las partes visibles del cuerpo humano y practicar hábitos de higiene personal."
+  },
+  {
+    codigo: "ECA.1.1.1.",
+    area: "Educación Cultural y Artística",
+    subnivel: "Preparatoria",
+    asignatura: "Educación Cultural y Artística",
+    bloque: "El yo y la identidad",
+    descripcion: "Explorar las posibilidades sonoras de la voz, del propio cuerpo y de los elementos del entorno natural y artificial."
+  },
+  {
+    codigo: "EF.1.1.1.",
+    area: "Educación Física",
+    subnivel: "Preparatoria",
+    asignatura: "Educación Física",
+    bloque: "Prácticas lúdicas: los juegos",
+    descripcion: "Identificar las características de los juegos y participar activamente con sus pares de forma segura."
+  },
+
+  // ==========================================
+  // ELEMENTAL (2.°, 3.°, 4.° EGB)
+  // ==========================================
+  {
+    codigo: "M.2.1.1.",
+    area: "Matemática",
+    subnivel: "Elemental",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Representar gráficamente conjuntos y subconjuntos, discriminando las propiedades o atributos de los objetos."
+  },
+  {
+    codigo: "M.2.1.2.",
+    area: "Matemática",
+    subnivel: "Elemental",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Describir y reproducir patrones de objetos y figuras basándose en sus atributos."
+  },
+  {
+    codigo: "M.2.1.12.",
+    area: "Matemática",
+    subnivel: "Elemental",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Representar, escribir y leer los números naturales del 0 al 9 999 en forma concreta, gráfica y simbólica."
+  },
+  {
+    codigo: "M.2.1.19.",
+    area: "Matemática",
+    subnivel: "Elemental",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Relacionar la noción de adición con la de agregar objetos a un conjunto y resolver problemas de adición."
+  },
+  {
+    codigo: "M.2.1.21.",
+    area: "Matemática",
+    subnivel: "Elemental",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Realizar adiciones y sustracciones con los números hasta 9 999, con material concreto, mentalmente y gráficamente."
+  },
+  {
+    codigo: "M.2.2.5.",
+    area: "Matemática",
+    subnivel: "Elemental",
+    asignatura: "Matemática",
+    bloque: "Geometría y medida",
+    descripcion: "Distinguir lados, frontera exterior e interior, vértices y ángulos en figuras geométricas: cuadrados, triángulos, rectángulos y círculos."
+  },
+  {
+    codigo: "LL.2.1.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Elemental",
+    asignatura: "Lengua y Literatura",
+    bloque: "Lengua y cultura",
+    descripcion: "Distinguir la intención comunicativa (persuadir, expresar emociones, informar) que tienen diversos textos de uso cotidiano."
+  },
+  {
+    codigo: "LL.2.2.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Elemental",
+    asignatura: "Lengua y Literatura",
+    bloque: "Comunicación oral",
+    descripcion: "Compartir de manera espontánea sus ideas, experiencias y necesidades en situaciones informales de la vida cotidiana."
+  },
+  {
+    codigo: "LL.2.3.5.",
+    area: "Lengua y Literatura",
+    subnivel: "Elemental",
+    asignatura: "Lengua y Literatura",
+    bloque: "Lectura",
+    descripcion: "Desarrollar estrategias cognitivas como lectura de paratextos, establecimiento del propósito de lectura, relectura y relectura selectiva."
+  },
+  {
+    codigo: "LL.2.4.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Elemental",
+    asignatura: "Lengua y Literatura",
+    bloque: "Escritura",
+    descripcion: "Desarrollar progresivamente autonomía y calidad en el proceso de escritura de relatos de experiencias personales, hechos cotidianos u otros sucesos."
+  },
+  {
+    codigo: "LL.2.4.7.",
+    area: "Lengua y Literatura",
+    subnivel: "Elemental",
+    asignatura: "Lengua y Literatura",
+    bloque: "Escritura",
+    descripcion: "Aplicar progresivamente las reglas de escritura mediante la reflexión fonológica en la escritura ortográfica de fonemas."
+  },
+  {
+    codigo: "CS.2.1.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Elemental",
+    asignatura: "Ciencias Sociales",
+    bloque: "Historia e identidad",
+    descripcion: "Reconocer a la familia como espacio de primigenia socialización y sus diferentes tipos, valorando la importancia de los acuerdos y vínculos afectivos."
+  },
+  {
+    codigo: "CS.2.1.6.",
+    area: "Ciencias Sociales",
+    subnivel: "Elemental",
+    asignatura: "Ciencias Sociales",
+    bloque: "Historia e identidad",
+    descripcion: "Indagar los orígenes fundacionales y las características más significativas de la localidad, parroquia, cantón y provincia."
+  },
+  {
+    codigo: "CS.2.2.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Elemental",
+    asignatura: "Ciencias Sociales",
+    bloque: "Los seres humanos en el espacio",
+    descripcion: "Reconocer y ubicar los puntos cardinales en la escuela y la comunidad a partir de puntos de referencia y con la ayuda de mapas."
+  },
+  {
+    codigo: "CS.2.3.2.",
+    area: "Ciencias Sociales",
+    subnivel: "Elemental",
+    asignatura: "Ciencias Sociales",
+    bloque: "La convivencia",
+    descripcion: "Reconocer la escuela como un espacio de interacción compartida, lúdica y de aprendizaje con normas y deberes."
+  },
+  {
+    codigo: "CN.2.1.1.",
+    area: "Ciencias Naturales",
+    subnivel: "Elemental",
+    asignatura: "Ciencias Naturales",
+    bloque: "Los seres vivos y su ambiente",
+    descripcion: "Observar las etapas del ciclo vital del ser humano y registrar gráficamente los cambios de acuerdo a la edad."
+  },
+  {
+    codigo: "CN.2.1.4.",
+    area: "Ciencias Naturales",
+    subnivel: "Elemental",
+    asignatura: "Ciencias Naturales",
+    bloque: "Los seres vivos y su ambiente",
+    descripcion: "Observar y describir las características de los animales y clasificarlos en vertebrados e invertebrados por la presencia o ausencia de columna vertebral."
+  },
+  {
+    codigo: "CN.2.2.2.",
+    area: "Ciencias Naturales",
+    subnivel: "Elemental",
+    asignatura: "Ciencias Naturales",
+    bloque: "Cuerpo humano y salud",
+    descripcion: "Explorar y describir los órganos que permiten el movimiento del cuerpo y ejemplificar la función coordinada del esqueleto y de los músculos."
+  },
+  {
+    codigo: "ECA.2.1.1.",
+    area: "Educación Cultural y Artística",
+    subnivel: "Elemental",
+    asignatura: "Educación Cultural y Artística",
+    bloque: "El yo y la identidad",
+    descripcion: "Experimentar con las posibilidades del color y del gesto espontáneo al plasmar la propia imagen sobre soportes variados."
+  },
+  {
+    codigo: "EF.2.1.1.",
+    area: "Educación Física",
+    subnivel: "Elemental",
+    asignatura: "Educación Física",
+    bloque: "Prácticas lúdicas: los juegos",
+    descripcion: "Identificar las características, objetivos y roles de los participantes en diferentes tipos de juegos para participar placenteramente."
+  },
+  {
+    codigo: "EFL.2.1.1.",
+    area: "Lengua Extranjera (Inglés)",
+    subnivel: "Elemental",
+    asignatura: "Inglés",
+    bloque: "Communication and Cultural Awareness",
+    descripcion: "Exchange basic introductions and limited personal information in class using simple phrases and gestures."
+  },
+
+  // ==========================================
+  // MEDIA (5.°, 6.°, 7.° EGB)
+  // ==========================================
+  {
+    codigo: "M.3.1.1.",
+    area: "Matemática",
+    subnivel: "Media",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Generar sucesiones con sumas, restas, multiplicaciones y divisiones, con números naturales, a partir de ejercicios numéricos o problemas sencillos."
+  },
+  {
+    codigo: "M.3.1.5.",
+    area: "Matemática",
+    subnivel: "Media",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Reconocer el valor posicional de números naturales de hasta nueve cifras, basándose en su composición y descomposición con el uso de material concreto."
+  },
+  {
+    codigo: "M.3.1.7.",
+    area: "Matemática",
+    subnivel: "Media",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Reconocer términos de la adición y sustracción, y calcular la suma o la diferencia de números naturales."
+  },
+  {
+    codigo: "M.3.1.9.",
+    area: "Matemática",
+    subnivel: "Media",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Reconocer términos y realizar multiplicaciones entre números naturales, aplicando el algoritmo de la multiplicación y con el uso de la tecnología."
+  },
+  {
+    codigo: "M.3.1.28.",
+    area: "Matemática",
+    subnivel: "Media",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Calcular, aplicando algoritmos y la tecnología, sumas, restas, multiplicaciones y divisiones con números decimales."
+  },
+  {
+    codigo: "M.3.2.3.",
+    area: "Matemática",
+    subnivel: "Media",
+    asignatura: "Matemática",
+    bloque: "Geometría y medida",
+    descripcion: "Identificar paralelogramos y trapecios a partir del análisis de sus lados y de sus ángulos y calcular su perímetro."
+  },
+  {
+    codigo: "LL.3.1.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Media",
+    asignatura: "Lengua y Literatura",
+    bloque: "Lengua y cultura",
+    descripcion: "Participar en contextos y situaciones que evidencien la funcionalidad de la lengua escrita como herramienta de comunicación."
+  },
+  {
+    codigo: "LL.3.2.2.",
+    area: "Lengua y Literatura",
+    subnivel: "Media",
+    asignatura: "Lengua y Literatura",
+    bloque: "Comunicación oral",
+    descripcion: "Proponer intervenciones orales con una intención comunicativa, organizar el discurso según las estructuras básicas de la lengua oral y utilizar un vocabulario adecuado."
+  },
+  {
+    codigo: "LL.3.3.2.",
+    area: "Lengua y Literatura",
+    subnivel: "Media",
+    asignatura: "Lengua y Literatura",
+    bloque: "Lectura",
+    descripcion: "Comprender los contenidos implícitos de un texto mediante la realización de inferencias fundamentales y valoraciones valorativas."
+  },
+  {
+    codigo: "LL.3.4.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Media",
+    asignatura: "Lengua y Literatura",
+    bloque: "Escritura",
+    descripcion: "Relatar textos con secuencia lógica, manejo de conectores y coherencia en el uso de la persona y del tiempo verbal e integrarlos en diversas situaciones comunicativas."
+  },
+  {
+    codigo: "LL.3.4.10.",
+    area: "Lengua y Literatura",
+    subnivel: "Media",
+    asignatura: "Lengua y Literatura",
+    bloque: "Escritura",
+    descripcion: "Expresar sus ideas con precisión y utilizar la estructura de la oración compuesta y las normas de ortografía y puntuación."
+  },
+  {
+    codigo: "CS.3.1.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Media",
+    asignatura: "Ciencias Sociales",
+    bloque: "Historia e identidad",
+    descripcion: "Analizar el origen de los primeros pobladores del Ecuador, sus rutas de llegada, sus herramientas y formas de trabajo colectivo."
+  },
+  {
+    codigo: "CS.3.1.9.",
+    area: "Ciencias Sociales",
+    subnivel: "Media",
+    asignatura: "Ciencias Sociales",
+    bloque: "Historia e identidad",
+    descripcion: "Identificar a los conquistadores españoles, su relación con los indígenas y sus conflictos con la Corona."
+  },
+  {
+    codigo: "CS.3.2.3.",
+    area: "Ciencias Sociales",
+    subnivel: "Media",
+    asignatura: "Ciencias Sociales",
+    bloque: "Los seres humanos en el espacio",
+    descripcion: "Localizar los relieves, suelos y regiones naturales del Ecuador con el apoyo de diversos recursos cartográficos."
+  },
+  {
+    codigo: "CS.3.3.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Media",
+    asignatura: "Ciencias Sociales",
+    bloque: "La convivencia",
+    descripcion: "Analizar las acciones y omisiones que provocan la discriminación a través del estudio de casos de la vida real."
+  },
+  {
+    codigo: "CN.3.1.1.",
+    area: "Ciencias Naturales",
+    subnivel: "Media",
+    asignatura: "Ciencias Naturales",
+    bloque: "Los seres vivos y su ambiente",
+    descripcion: "Indagar, con uso del microscopio o de las TIC, la estructura y función de las células, y clasificarlas por sus características."
+  },
+  {
+    codigo: "CN.3.1.9.",
+    area: "Ciencias Naturales",
+    subnivel: "Media",
+    asignatura: "Ciencias Naturales",
+    bloque: "Los seres vivos y su ambiente",
+    descripcion: "Indagar sobre los ecosistemas de Ecuador y describir las características de las áreas protegidas del país."
+  },
+  {
+    codigo: "CN.3.2.1.",
+    area: "Ciencias Naturales",
+    subnivel: "Media",
+    asignatura: "Ciencias Naturales",
+    bloque: "Cuerpo humano y salud",
+    descripcion: "Indagar y describir la estructura y función de los sistemas digestivo, respiratorio, circulatorio y excretor, y promover su cuidado."
+  },
+  {
+    codigo: "ECA.3.1.3.",
+    area: "Educación Cultural y Artística",
+    subnivel: "Media",
+    asignatura: "Educación Cultural y Artística",
+    bloque: "El yo y la identidad",
+    descripcion: "Describir algunas características del propio rostro mediante la observación en espejos y retratos."
+  },
+  {
+    codigo: "EF.3.1.1.",
+    area: "Educación Física",
+    subnivel: "Media",
+    asignatura: "Educación Física",
+    bloque: "Prácticas lúdicas: los juegos",
+    descripcion: "Identificar y diferenciar las características, procedencia y objetivos de diferentes tipos de juegos (de persecución, de cooperación, tradicionales)."
+  },
+  {
+    codigo: "EFL.3.1.1.",
+    area: "Lengua Extranjera (Inglés)",
+    subnivel: "Media",
+    asignatura: "Inglés",
+    bloque: "Communication and Cultural Awareness",
+    descripcion: "Ask and answer simple questions about familiar topics using structured English phrases."
+  },
+
+  // ==========================================
+  // SUPERIOR (8.°, 9.°, 10.° EGB)
+  // ==========================================
+  {
+    codigo: "M.4.1.1.",
+    area: "Matemática",
+    subnivel: "Superior",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Reconocer las relaciones de orden en el conjunto de números enteros, utilizando la recta numérica y la simbología matemática (=, <, >, <=, >=)."
+  },
+  {
+    codigo: "M.4.1.3.",
+    area: "Matemática",
+    subnivel: "Superior",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Operar en Z (adición, sustracción, multiplicación) de forma numérica, aplicando el orden de operación."
+  },
+  {
+    codigo: "M.4.1.14.",
+    area: "Matemática",
+    subnivel: "Superior",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Representar y reconocer los números racionales a través de expresiones decimales y fraccionarias."
+  },
+  {
+    codigo: "M.4.1.20.",
+    area: "Matemática",
+    subnivel: "Superior",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Resolver ecuaciones de primer grado con una incógnita en Z y en Q en la solución de problemas."
+  },
+  {
+    codigo: "M.4.2.1.",
+    area: "Matemática",
+    subnivel: "Superior",
+    asignatura: "Matemática",
+    bloque: "Geometría y medida",
+    descripcion: "Definir e identificar figuras geométricas congruentes y semejantes, de acuerdo a las medidas de los ángulos y a la relación entre las medidas de los lados."
+  },
+  {
+    codigo: "M.4.3.1.",
+    area: "Matemática",
+    subnivel: "Superior",
+    asignatura: "Matemática",
+    bloque: "Estadística y probabilidad",
+    descripcion: "Organizar datos no agrupados (máximo 20) y datos agrupados (máximo 50) en tablas de distribución de frecuencias y calcular la media, mediana y moda."
+  },
+  {
+    codigo: "LL.4.1.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Superior",
+    asignatura: "Lengua y Literatura",
+    bloque: "Lengua y cultura",
+    descripcion: "Indagar y explicar los aportes de la cultura escrita al desarrollo histórico, social y cultural de la humanidad."
+  },
+  {
+    codigo: "LL.4.2.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Superior",
+    asignatura: "Lengua y Literatura",
+    bloque: "Comunicación oral",
+    descripcion: "Utilizar recursos de la comunicación oral en contextos de intercambio social, construcción de acuerdos y resolución de problemas."
+  },
+  {
+    codigo: "LL.4.3.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Superior",
+    asignatura: "Lengua y Literatura",
+    bloque: "Lectura",
+    descripcion: "Comparar, bajo criterios preestablecidos, las relaciones explícitas entre los contenidos de dos o más textos y contrastar sus fuentes."
+  },
+  {
+    codigo: "LL.4.4.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Superior",
+    asignatura: "Lengua y Literatura",
+    bloque: "Escritura",
+    descripcion: "Escribir textos periodísticos y académicos con manejo de su estructura básica, y sustentar las ideas con razones y ejemplos organizados de manera jerárquica."
+  },
+  {
+    codigo: "LL.4.4.7.",
+    area: "Lengua y Literatura",
+    subnivel: "Superior",
+    asignatura: "Lengua y Literatura",
+    bloque: "Escritura",
+    descripcion: "Matizar y precisar las ideas y los significados de oraciones y párrafos mediante el uso selectivo de modos verbales, tiempos y conectores."
+  },
+  {
+    codigo: "CS.4.1.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Superior",
+    asignatura: "Ciencias Sociales",
+    bloque: "Historia e identidad",
+    descripcion: "Reconocer el estudio de la Historia como conocimiento esencial para entender nuestro pasado y nuestra identidad y para comprender cómo influyen en el mundo en que vivimos."
+  },
+  {
+    codigo: "CS.4.1.16.",
+    area: "Ciencias Sociales",
+    subnivel: "Superior",
+    asignatura: "Ciencias Sociales",
+    bloque: "Historia e identidad",
+    descripcion: "Analizar el origen de los primeros imperios en el Medio Oriente y el Mediterráneo y sus aportes a la cultura universal."
+  },
+  {
+    codigo: "CS.4.2.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Superior",
+    asignatura: "Ciencias Sociales",
+    bloque: "Los seres humanos en el espacio",
+    descripcion: "Examinar el proceso de formación de la Tierra, la gestación de los continentes y las sucesivas eras geológicas."
+  },
+  {
+    codigo: "CS.4.3.1.",
+    area: "Ciencias Sociales",
+    subnivel: "Superior",
+    asignatura: "Ciencias Sociales",
+    bloque: "La convivencia",
+    descripcion: "Apreciar las culturas del Ecuador a partir del estudio de su origen, localización y rasgos más destacados."
+  },
+  {
+    codigo: "CN.4.1.1.",
+    area: "Ciencias Naturales",
+    subnivel: "Superior",
+    asignatura: "Ciencias Naturales",
+    bloque: "Los seres vivos y su ambiente",
+    descripcion: "Indagar y explicar las propiedades de los seres vivos e inferir su importancia para el mantenimiento de la vida en la Tierra."
+  },
+  {
+    codigo: "CN.4.1.3.",
+    area: "Ciencias Naturales",
+    subnivel: "Superior",
+    asignatura: "Ciencias Naturales",
+    bloque: "Los seres vivos y su ambiente",
+    descripcion: "Indagar, con uso del microscopio o de las TIC, la estructura y función de las células procariotas y eucariotas, y clasificarlas por sus características."
+  },
+  {
+    codigo: "CN.4.2.1.",
+    area: "Ciencias Naturales",
+    subnivel: "Superior",
+    asignatura: "Ciencias Naturales",
+    bloque: "Cuerpo humano y salud",
+    descripcion: "Analizar y explicar las etapas de la reproducción humana, deducir su importancia como un mecanismo de perpetuación de la especie."
+  },
+  {
+    codigo: "CN.4.3.1.",
+    area: "Ciencias Naturales",
+    subnivel: "Superior",
+    asignatura: "Ciencias Naturales",
+    bloque: "Materia y energía",
+    descripcion: "Investigar en forma experimental y explicar la posición de un objeto respecto a un punto de referencia, y calcular la rapidez."
+  },
+  {
+    codigo: "ECA.4.1.1.",
+    area: "Educación Cultural y Artística",
+    subnivel: "Superior",
+    asignatura: "Educación Cultural y Artística",
+    bloque: "El yo y la identidad",
+    descripcion: "Comparar las distintas maneras de representar un mismo tema a través de distintas manifestaciones artísticas."
+  },
+  {
+    codigo: "EF.4.1.1.",
+    area: "Educación Física",
+    subnivel: "Superior",
+    asignatura: "Educación Física",
+    bloque: "Prácticas lúdicas: los juegos",
+    descripcion: "Participar en diferentes categorías de juegos (tradicionales, populares, modificados) reconociendo el aporte al bienestar."
+  },
+  {
+    codigo: "EFL.4.1.1.",
+    area: "Lengua Extranjera (Inglés)",
+    subnivel: "Superior",
+    asignatura: "Inglés",
+    bloque: "Communication and Cultural Awareness",
+    descripcion: "Compare and contrast oral traditions, myths, and legends from different cultures through reading and discussion in English."
+  },
+
+  // ==========================================
+  // BACHILLERATO (1.°, 2.°, 3.° BGU)
+  // ==========================================
+  // Matemática
+  {
+    codigo: "M.5.1.1.",
+    area: "Matemática",
+    subnivel: "Bachillerato",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Aplicar las propiedades algebraicas de los números reales en la resolución de productos notables y en la factorización de expresiones algebraicas."
+  },
+  {
+    codigo: "M.5.1.5.",
+    area: "Matemática",
+    subnivel: "Bachillerato",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Identificar la intersección gráfica de dos rectas como la solución analítica de un sistema de dos ecuaciones lineales con dos incógnitas."
+  },
+  {
+    codigo: "M.5.1.20.",
+    area: "Matemática",
+    subnivel: "Bachillerato",
+    asignatura: "Matemática",
+    bloque: "Álgebra y funciones",
+    descripcion: "Graficar y analizar el dominio, recorrido, monotonía, ceros, extremos y paridad de las diferentes funciones reales (función afín a trozos, función potencia entera negativa con n=-1, -2, función raíz cuadrada, función valor absoluto de la función afín)."
+  },
+  {
+    codigo: "M.5.2.1.",
+    area: "Matemática",
+    subnivel: "Bachillerato",
+    asignatura: "Matemática",
+    bloque: "Geometría y medida",
+    descripcion: "Graficar vectores en el plano (coordenadas) e identificar sus características: dirección, sentido y longitud o norma."
+  },
+
+  // Lengua y Literatura
+  {
+    codigo: "LL.5.1.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Bachillerato",
+    asignatura: "Lengua y Literatura",
+    bloque: "Lengua y cultura",
+    descripcion: "Indagar sobre la evolución de la cultura escrita en la era digital (transformaciones y tendencias actuales y futuras) e identificar las implicaciones socioculturales de su producción y consumo."
+  },
+  {
+    codigo: "LL.5.3.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Bachillerato",
+    asignatura: "Lengua y Literatura",
+    bloque: "Lectura",
+    descripcion: "Valorar el contenido explícito de dos o más textos orales e identificar contradicciones, ambigüedades y falacias."
+  },
+  {
+    codigo: "LL.5.4.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Bachillerato",
+    asignatura: "Lengua y Literatura",
+    bloque: "Escritura",
+    descripcion: "Construir un texto argumentativo seleccionando el tema y el propósito comunicativo, formulando la tesis y aplicando las normas de citación APA."
+  },
+  {
+    codigo: "LL.5.5.1.",
+    area: "Lengua y Literatura",
+    subnivel: "Bachillerato",
+    asignatura: "Lengua y Literatura",
+    bloque: "Literatura",
+    descripcion: "Ubicar cronológicamente los textos más representativos de la literatura ecuatoriana: siglos XIX a XXI, y establecer sus aportes en la construcción de una cultura diversa y plural."
+  },
+
+  // Historia (Exclusiva Bachillerato)
+  {
+    codigo: "CS.H.5.1.1.",
+    area: "Historia",
+    subnivel: "Bachillerato",
+    asignatura: "Historia",
+    bloque: "Los orígenes y las primeras culturas de la humanidad",
+    descripcion: "Contrastar los conceptos de historia e historiografía, mediante el uso técnico y ético de diversas fuentes, considerando la realidad humana como un objeto de estudio complejo y dinámico."
+  },
+  {
+    codigo: "CS.H.5.1.3.",
+    area: "Historia",
+    subnivel: "Bachillerato",
+    asignatura: "Historia",
+    bloque: "Los orígenes y las primeras culturas de la humanidad",
+    descripcion: "Explicar y valorar la importancia del trabajo, la división social y la especialización en el Paleolítico y Neolítico para la supervivencia de la especie humana."
+  },
+  {
+    codigo: "CS.H.5.2.1.",
+    area: "Historia",
+    subnivel: "Bachillerato",
+    asignatura: "Historia",
+    bloque: "De la Edad Media a la Modernidad",
+    descripcion: "Determinar las causas y consecuencias de la decadencia y caída del Imperio romano de Occidente y el surgimiento del feudalismo."
+  },
+  {
+    codigo: "CS.H.5.3.1.",
+    area: "Historia",
+    subnivel: "Bachillerato",
+    asignatura: "Historia",
+    bloque: "América latina y el mundo contemporáneo",
+    descripcion: "Identificar y valorar las producciones intelectuales más significativas de las culturas aborígenes de América Latina (mayas, aztecas e incas)."
+  },
+
+  // Filosofía (Exclusiva Bachillerato)
+  {
+    codigo: "CS.F.5.1.1.",
+    area: "Filosofía",
+    subnivel: "Bachillerato",
+    asignatura: "Filosofía",
+    bloque: "El origen del pensamiento filosófico",
+    descripcion: "Comprender el origen del pensamiento filosófico a partir de la crítica al mito, mediante la reflexión en torno a problemas de la realidad."
+  },
+  {
+    codigo: "CS.F.5.1.3.",
+    area: "Filosofía",
+    subnivel: "Bachillerato",
+    asignatura: "Filosofía",
+    bloque: "El origen del pensamiento filosófico",
+    descripcion: "Analizar y comprender las diversas producciones del pensamiento humano (ciencia, religión, arte) y su relación con el filosofar."
+  },
+  {
+    codigo: "CS.F.5.2.1.",
+    area: "Filosofía",
+    subnivel: "Bachillerato",
+    asignatura: "Filosofía",
+    bloque: "La argumentación y el pensamiento crítico",
+    descripcion: "Diferenciar las falacias de las paradojas, comprendiendo su aplicación en los discursos políticos, publicitarios y de la vida cotidiana."
+  },
+
+  // Educación para la Ciudadanía (Exclusiva Bachillerato)
+  {
+    codigo: "CS.EC.5.1.1.",
+    area: "Educación para la Ciudadanía",
+    subnivel: "Bachillerato",
+    asignatura: "Educación para la Ciudadanía",
+    bloque: "Ciudadanía y derechos",
+    descripcion: "Determinar el origen y evolución histórica del concepto 'derechos' a partir de la organización política de la sociedad (Grecia, Roma)."
+  },
+  {
+    codigo: "CS.EC.5.1.3.",
+    area: "Educación para la Ciudadanía",
+    subnivel: "Bachillerato",
+    asignatura: "Educación para la Ciudadanía",
+    bloque: "Ciudadanía y derechos",
+    descripcion: "Analizar los procesos históricos que propiciaron la Declaración de los Derechos del Hombre y del Ciudadano, mediante el análisis multicausal."
+  },
+  {
+    codigo: "CS.EC.5.2.1.",
+    area: "Educación para la Ciudadanía",
+    subnivel: "Bachillerato",
+    asignatura: "Educación para la Ciudadanía",
+    bloque: "La democracia moderna",
+    descripcion: "Contextualizar el nacimiento de la democracia moderna, considerando los procesos de lucha que se libraron por la ampliación de los derechos."
+  },
+
+  // Biología (Exclusiva Bachillerato)
+  {
+    codigo: "CN.B.5.1.1.",
+    area: "Biología",
+    subnivel: "Bachillerato",
+    asignatura: "Biología",
+    bloque: "Evolución de los seres vivos",
+    descripcion: "Indagar y analizar la teoría de la abiogénesis que explica el origen de la vida, e interpretar las distintas evidencias científicas."
+  },
+  {
+    codigo: "CN.B.5.1.6.",
+    area: "Biología",
+    subnivel: "Bachillerato",
+    asignatura: "Biología",
+    bloque: "Biología celular y molecular",
+    descripcion: "Describir la estructura y función de las biomoléculas (carbohidratos, lípidos, proteínas y ácidos nucleicos) que constituyen a los seres vivos."
+  },
+  {
+    codigo: "CN.B.5.2.1.",
+    area: "Biología",
+    subnivel: "Bachillerato",
+    asignatura: "Biología",
+    bloque: "Cuerpo humano y salud",
+    descripcion: "Explicar las propiedades y funciones de los sistemas osteomuscular, neuroendocrino e inmunológico en el mantenimiento de la homeostasis corporal."
+  },
+
+  // Física (Exclusiva Bachillerato)
+  {
+    codigo: "CN.F.5.1.1.",
+    area: "Física",
+    subnivel: "Bachillerato",
+    asignatura: "Física",
+    bloque: "Movimiento y fuerza",
+    descripcion: "Determinar la posición y el desplazamiento de un objeto (considerado como una masa puntual) que se mueve, a partir de tablas y gráficas que relacionen la posición en función del tiempo."
+  },
+  {
+    codigo: "CN.F.5.1.2.",
+    area: "Física",
+    subnivel: "Bachillerato",
+    asignatura: "Física",
+    bloque: "Movimiento y fuerza",
+    descripcion: "Explicar, por medio de la experimentación de un objeto y el análisis de tablas y gráficas, que el movimiento rectilíneo uniforme implica una velocidad constante."
+  },
+  {
+    codigo: "CN.F.5.1.16.",
+    area: "Física",
+    subnivel: "Bachillerato",
+    asignatura: "Física",
+    bloque: "Movimiento y fuerza",
+    descripcion: "Indagar los principios de Newton (inercia, fuerza y acción y reacción) y aplicarlos para resolver problemas de dinámica elemental."
+  },
+
+  // Química (Exclusiva Bachillerato)
+  {
+    codigo: "CN.Q.5.1.1.",
+    area: "Química",
+    subnivel: "Bachillerato",
+    asignatura: "Química",
+    bloque: "El mundo de la química",
+    descripcion: "Indagar y examinar con uso de las TIC u otros recursos las leyes y postulados de la teoría atómica moderna y comprender la configuración electrónica de los átomos."
+  },
+  {
+    codigo: "CN.Q.5.1.3.",
+    area: "Química",
+    subnivel: "Bachillerato",
+    asignatura: "Química",
+    bloque: "El mundo de la química",
+    descripcion: "Observar y comparar la teoría de enlace químico (iónico, covalente y metálico) desde la atracción electrostática entre iones y compartición de electrones."
+  },
+  {
+    codigo: "CN.Q.5.2.1.",
+    area: "Química",
+    subnivel: "Bachillerato",
+    asignatura: "Química",
+    bloque: "La química y su lenguaje",
+    descripcion: "Deducir y comunicar que la formación de compuestos químicos responde a la necesidad de alcanzar mayor estabilidad energética y escribir sus fórmulas."
+  },
+
+  // ECA Bachillerato
+  {
+    codigo: "ECA.5.1.1.",
+    area: "Educación Cultural y Artística",
+    subnivel: "Bachillerato",
+    asignatura: "Educación Cultural y Artística",
+    bloque: "El yo y la identidad",
+    descripcion: "Realizar producciones artísticas (una canción, un dibujo, una escultura, un monólogo, una instalación, etc.) a partir de temas de interés social o personal."
+  },
+
+  // Educación Física Bachillerato
+  {
+    codigo: "EF.5.1.1.",
+    area: "Educación Física",
+    subnivel: "Bachillerato",
+    asignatura: "Educación Física",
+    bloque: "Prácticas lúdicas: los juegos",
+    descripcion: "Reconocer a los juegos como manifestaciones culturales con sentido para los participantes, promoviendo la equidad y el respeto mutuo."
+  },
+
+  // Inglés Bachillerato
+  {
+    codigo: "EFL.5.1.1.",
+    area: "Lengua Extranjera (Inglés)",
+    subnivel: "Bachillerato",
+    asignatura: "Inglés",
+    bloque: "Communication and Cultural Awareness",
+    descripcion: "Display an understanding of the integrity of different cultures by sharing experiences and opinions in group interactions in English."
+  }
+];
+
+// Rutas de salida
+const dataJsonPath = path.join(__dirname, '..', 'data', 'curriculum-dcd.json');
+const jsDataPath = path.join(__dirname, '..', 'js', 'curriculum-data.js');
+
+// 1. Guardar data/curriculum-dcd.json
+fs.writeFileSync(dataJsonPath, JSON.stringify(expandedDCDs, null, 2), 'utf-8');
+console.log(`[OK] Guardado catálogo JSON en ${dataJsonPath} con ${expandedDCDs.length} destrezas.`);
+
+// 2. Actualizar js/curriculum-data.js
+const jsContent = `/**
+ * ADAPTADIAC - Base de Datos Curricular Oficial Nacional (Ecuador)
+ * DCD: Destrezas con Criterio de Desempeño
+ * Estructuradas por Nivel/Subnivel, Área de Conocimiento y Bloque Curricular.
+ * Actualizado automáticamente con catálogo ampliado y sincronizado.
+ */
+
+const DCD_DATABASE = ${JSON.stringify(expandedDCDs, null, 2)};
+
+// Asignaturas y áreas oficiales por subnivel
+const SUBNIVELES_AREAS = {
+  "Inicial": ["Comprensión y expresión del lenguaje", "Relaciones lógico-matemáticas", "Convivencia", "Identidad y autonomía", "Expresión artística", "Expresión corporal"],
+  "Preparatoria": ["Lengua y Literatura", "Matemática", "Ciencias Naturales", "Ciencias Sociales", "Educación Cultural y Artística", "Educación Física", "Lengua Extranjera (Inglés)"],
+  "Elemental": ["Lengua y Literatura", "Matemática", "Ciencias Naturales", "Ciencias Sociales", "Educación Cultural y Artística", "Educación Física", "Lengua Extranjera (Inglés)"],
+  "Media": ["Lengua y Literatura", "Matemática", "Ciencias Naturales", "Ciencias Sociales", "Educación Cultural y Artística", "Educación Física", "Lengua Extranjera (Inglés)"],
+  "Superior": ["Lengua y Literatura", "Matemática", "Ciencias Naturales", "Ciencias Sociales", "Educación Cultural y Artística", "Educación Física", "Lengua Extranjera (Inglés)"],
+  "Bachillerato": [
+    "Matemática",
+    "Lengua y Literatura",
+    "Física",
+    "Química",
+    "Biología",
+    "Historia",
+    "Filosofía",
+    "Educación para la Ciudadanía",
+    "Educación Cultural y Artística",
+    "Educación Física",
+    "Lengua Extranjera (Inglés)"
+  ]
+};
+
+// Exportar para Node.js si aplica (o navegador)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { DCD_DATABASE, SUBNIVELES_AREAS };
+}
+`;
+
+fs.writeFileSync(jsDataPath, jsContent, 'utf-8');
+console.log(`[OK] Guardado archivo JS en ${jsDataPath}.`);

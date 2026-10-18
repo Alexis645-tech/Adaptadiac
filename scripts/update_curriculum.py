@@ -282,11 +282,19 @@ def download_and_process_pdf(url: str) -> List[Dict[str, Any]]:
 
     return extracted_dcds
 
+# Enlaces directos a los repositorios oficiales de PDFs del Ministerio de Educación
+OFFICIAL_MINEDUC_PDFS = [
+    "https://educacion.gob.ec/wp-content/uploads/downloads/2021/12/Curriculo-priorizado-con-enfasis-en-CC-CM-CD-CS_Elemental.pdf",
+    "https://educacion.gob.ec/wp-content/uploads/downloads/2021/12/Curriculo-priorizado-con-enfasis-en-CC-CM-CD-CS_Media.pdf",
+    "https://educacion.gob.ec/wp-content/uploads/downloads/2021/12/Curriculo-priorizado-con-enfasis-en-CC-CM-CD-CS_Superior.pdf",
+    "https://educacion.gob.ec/wp-content/uploads/downloads/2021/12/Curriculo-priorizado-con-enfasis-en-CC-CM-CD-CS_Bachillerato.pdf"
+]
+
 def check_mineduc_updates() -> List[str]:
-    """Rastrea el portal del Ministerio de Educación en busca de URLs de PDFs curriculares."""
+    """Rastrea el portal del Ministerio de Educación e incluye los repositorios directos oficiales."""
     print("[SCAN] Escaneando portal oficial del Ministerio de Educación...")
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AdaptaDIAC-Robot/3.0"}
-    found_pdfs = []
+    found_pdfs = list(OFFICIAL_MINEDUC_PDFS)
     urls_to_check = [MINEDUC_CURRICULO_URL, FALLBACK_CURRICULO_URL]
     
     for url in urls_to_check:
