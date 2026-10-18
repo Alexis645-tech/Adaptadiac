@@ -270,7 +270,7 @@ def download_and_process_pdf(url: str) -> List[Dict[str, Any]]:
         # 2. Si las tablas no trajeron resultados (PDF plano o maquetación libre), extraer texto crudo
         if not extracted_dcds and pdfplumber:
             with pdfplumber.open(tmp_path) as pdf:
-                full_text = " ".join([p.extract_text() or "" for p in pdf.pages[:80]])
+                full_text = " ".join([p.extract_text() or "" for p in pdf.pages])
                 extracted_dcds = parse_dcd_from_text(full_text)
 
         # Limpiar archivo temporal
@@ -282,8 +282,9 @@ def download_and_process_pdf(url: str) -> List[Dict[str, Any]]:
 
     return extracted_dcds
 
-# Enlaces directos a los repositorios oficiales de PDFs del Ministerio de Educación
+# Enlaces directos a los repositorios oficiales de PDFs del Ministerio de Educación (todos los subniveles)
 OFFICIAL_MINEDUC_PDFS = [
+    "https://educacion.gob.ec/wp-content/uploads/downloads/2021/12/Curriculo-priorizado-con-enfasis-en-CC-CM-CD-CS_Preparatoria.pdf",
     "https://educacion.gob.ec/wp-content/uploads/downloads/2021/12/Curriculo-priorizado-con-enfasis-en-CC-CM-CD-CS_Elemental.pdf",
     "https://educacion.gob.ec/wp-content/uploads/downloads/2021/12/Curriculo-priorizado-con-enfasis-en-CC-CM-CD-CS_Media.pdf",
     "https://educacion.gob.ec/wp-content/uploads/downloads/2021/12/Curriculo-priorizado-con-enfasis-en-CC-CM-CD-CS_Superior.pdf",
@@ -325,8 +326,8 @@ def main():
     pdf_urls = check_mineduc_updates()
     
     new_extracted = []
-    # Procesar los primeros PDFs relevantes detectados (máximo 3 por ejecución mensual)
-    for pdf_url in pdf_urls[:3]:
+    # Procesar todos los documentos oficiales identificados
+    for pdf_url in pdf_urls:
         dcds = download_and_process_pdf(pdf_url)
         if dcds:
             print(f"[OK] Extraídas {len(dcds)} DCDs de {pdf_url}")
