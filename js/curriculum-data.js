@@ -12,8 +12,12 @@ export const SUBNIVELES = [
 export const AREAS = [
   { id: 'matematica', name: 'Matemática', icon: '📐' },
   { id: 'lengua', name: 'Lengua y Literatura', icon: '📚' },
-  { id: 'ciencias_naturales', name: 'Ciencias Naturales', icon: '🔬' },
-  { id: 'ciencias_sociales', name: 'Ciencias Sociales / Historia', icon: '🌍' },
+  { id: 'historia', name: 'Historia', icon: '🏛️' },
+  { id: 'filosofia', name: 'Filosofía', icon: '💭', subniveles: ['bachillerato'] },
+  { id: 'ciudadania', name: 'Educación para la Ciudadanía', icon: '⚖️', subniveles: ['bachillerato'] },
+  { id: 'biologia', name: 'Biología', icon: '🧬', subniveles: ['bachillerato'] },
+  { id: 'fisica', name: 'Física', icon: '⚡', subniveles: ['bachillerato'] },
+  { id: 'quimica', name: 'Química', icon: '🧪', subniveles: ['bachillerato'] },
   { id: 'educacion_artistica', name: 'Educación Cultural y Artística (ECA)', icon: '🎨' },
   { id: 'educacion_fisica', name: 'Educación Física', icon: '⚽' },
   { id: 'ingles', name: 'Inglés / Foreign Language', icon: '🗣️' }
@@ -89,11 +93,11 @@ export const DCD_DATABASE = [
     nivelCognitivo: 'Aplicación / Creación'
   },
 
-  // --- BÁSICA ELEMENTAL: CIENCIAS NATURALES ---
+  // --- BÁSICA ELEMENTAL: BIOLOGÍA ---
   {
     codigo: 'CN.2.1.4',
     subnivel: 'elemental',
-    area: 'ciencias_naturales',
+    area: 'biologia',
     titulo: 'Clasificación de animales vertebrados e invertebrados',
     descripcion: 'CN.2.1.4. Observar y describir las características de los animales y clasificarlos en vertebrados e invertebrados, por la presencia o ausencia de una columna vertebral y esqueleto interno.',
     criterioEvaluacion: 'CE.CN.2.2. Aprecia la diversidad de plantas y animales en función de la comprensión de sus características y funciones vitales.',
@@ -147,11 +151,11 @@ export const DCD_DATABASE = [
     nivelCognitivo: 'Análisis'
   },
 
-  // --- BÁSICA MEDIA: CIENCIAS SOCIALES ---
+  // --- BÁSICA MEDIA: HISTORIA ---
   {
     codigo: 'CS.3.1.9',
     subnivel: 'media',
-    area: 'ciencias_sociales',
+    area: 'historia',
     titulo: 'Pueblos originarios y diversidad cultural del Ecuador',
     descripcion: 'CS.3.1.9. Identificar a los conquistadores y primeros colonizadores, sus características y los conflictos con los pueblos indígenas; y destacar los aportes culturales de los pueblos originarios y afrodescendientes.',
     criterioEvaluacion: 'CE.CS.3.1. Analiza la evolución de la organización económica y política del país desde sus orígenes prehispánicos hasta la época colonial.',
@@ -177,21 +181,6 @@ export const DCD_DATABASE = [
     nivelCognitivo: 'Aplicación / Abstracción'
   },
 
-  // --- BÁSICA SUPERIOR: CIENCIAS NATURALES ---
-  {
-    codigo: 'CN.4.1.7',
-    subnivel: 'superior',
-    area: 'ciencias_naturales',
-    titulo: 'Estructura celular y niveles de organización biológica',
-    descripcion: 'CN.4.1.7. Analizar los niveles de organización y diversidad de los seres vivos y clasificarlos en grupos taxonómicos, de acuerdo con las características observadas a simple vista y las invisibles para el ojo humano.',
-    criterioEvaluacion: 'CE.CN.4.1. Explica a partir de la indagación y experimentación la estructura de las células y los niveles de organización de la materia viva.',
-    indicadorEvaluacion: 'I.CN.4.1.2. Clasifica seres vivos a partir de criterios taxonómicos y explica el papel de la célula eucariota y procariota.',
-    habilidad: 'Analizar, modelar y comparar',
-    conocimiento: 'Célula animal y vegetal, organelos celulares, taxonomía',
-    contexto: 'Laboratorio escolar y microscopía virtual',
-    nivelCognitivo: 'Análisis / Modelado'
-  },
-
   // --- BÁSICA SUPERIOR: LENGUA Y LITERATURA ---
   {
     codigo: 'LL.4.3.4',
@@ -205,6 +194,21 @@ export const DCD_DATABASE = [
     conocimiento: 'Tesis, argumentos, falacias, puntos de vista',
     contexto: 'Debates actuales, medios digitales y redes sociales',
     nivelCognitivo: 'Evaluación crítica'
+  },
+
+  // --- BÁSICA SUPERIOR: HISTORIA ---
+  {
+    codigo: 'CS.4.1.16',
+    subnivel: 'superior',
+    area: 'historia',
+    titulo: 'Procesos de independencia y pensamiento libertario en América',
+    descripcion: 'CS.4.1.16. Analizar el origen y desarrollo de los movimientos libertarios de América Latina y destacar las figuras históricas y populares que gestaron la independencia republicana.',
+    criterioEvaluacion: 'CE.CS.4.2. Analiza el origen de las sociedades latinoamericanas y los procesos de independencia nacional.',
+    indicadorEvaluacion: 'I.CS.4.2.1. Compara los procesos independentistas de América Latina y valora la autodeterminación de los pueblos.',
+    habilidad: 'Analizar, comparar y contextualizar',
+    conocimiento: 'Independencia americana, próceres, causas y consecuencias históricas',
+    contexto: 'Identidad latinoamericana y soberanía',
+    nivelCognitivo: 'Análisis / Comprensión'
   },
 
   // --- BACHILLERATO: MATEMÁTICA ---
@@ -235,6 +239,96 @@ export const DCD_DATABASE = [
     conocimiento: 'Ensayo académico, normas de citación, contraargumentación',
     contexto: 'Investigación académica y debate ciudadano',
     nivelCognitivo: 'Creación / Evaluación'
+  },
+
+  // --- BACHILLERATO: HISTORIA ---
+  {
+    codigo: 'CS.H.5.1.3',
+    subnivel: 'bachillerato',
+    area: 'historia',
+    titulo: 'Aportes culturales de las civilizaciones fluviales de la Antigüedad',
+    descripcion: 'CS.H.5.1.3. Explicar y valorar los grandes aportes de las culturas de Mesopotamia, Egipto, India y China a la agricultura, escritura, arquitectura, comercio y organización jurídica de la humanidad.',
+    criterioEvaluacion: 'CE.CS.H.5.1. Analiza y contrasta las características de las primeras civilizaciones históricas y su influencia en el mundo contemporáneo.',
+    indicadorEvaluacion: 'I.CS.H.5.1.1. Contrasta los aportes de las civilizaciones de Oriente y Occidente valorando su legado cultural universal.',
+    habilidad: 'Explicar, contrastar y valorar',
+    conocimiento: 'Primeras civilizaciones, legado cultural, escritura y derecho',
+    contexto: 'Patrimonio de la humanidad y evolución social',
+    nivelCognitivo: 'Análisis / Comprensión'
+  },
+
+  // --- BACHILLERATO: FÍSICA ---
+  {
+    codigo: 'CN.F.5.1.1',
+    subnivel: 'bachillerato',
+    area: 'fisica',
+    titulo: 'Movimiento rectilíneo uniforme (MRU) y uniformemente variado (MRUV)',
+    descripcion: 'CN.F.5.1.1. Determinar la posición y el desplazamiento de un objeto considerando la velocidad y aceleración vectoriales en dos dimensiones, en situaciones de MRU y MRUV mediante gráficas y simuladores interactivos.',
+    criterioEvaluacion: 'CE.CN.F.5.1. Obtiene magnitudes cinemáticas del MRU y MRUV a partir de tablas y gráficas de movimiento.',
+    indicadorEvaluacion: 'I.CN.F.5.1.1. Determina magnitudes cinemáticas del movimiento rectilíneo en una y dos dimensiones analizando tablas y gráficos.',
+    habilidad: 'Determinar, graficar y modelar cinemáticamente',
+    conocimiento: 'MRU, MRUV, velocidad, aceleración, gráficas posición-tiempo',
+    contexto: 'Tránsito vial, trayectorias deportivas y física aplicada',
+    nivelCognitivo: 'Aplicación / Análisis'
+  },
+
+  // --- BACHILLERATO: QUÍMICA ---
+  {
+    codigo: 'CN.Q.5.1.2',
+    subnivel: 'bachillerato',
+    area: 'quimica',
+    titulo: 'Tabla periódica, configuración electrónica y enlaces químicos',
+    descripcion: 'CN.Q.5.1.2. Examinar las leyes que rigen el comportamiento de los elementos químicos en la tabla periódica, su configuración electrónica y la formación de enlaces iónicos y covalentes para comprender las propiedades de la materia.',
+    criterioEvaluacion: 'CE.CN.Q.5.2. Explica la estructura del átomo y la formación de enlaces químicos con base en la tabla periódica.',
+    indicadorEvaluacion: 'I.CN.Q.5.2.1. Analiza la estructura electrónica de los átomos y predice el tipo de enlace químico que formarán.',
+    habilidad: 'Examinar, predecir y representar',
+    conocimiento: 'Tabla periódica, electrones de valencia, enlaces iónicos y covalentes',
+    contexto: 'Compuestos del hogar, minerales y laboratorio químico',
+    nivelCognitivo: 'Comprensión / Modelado'
+  },
+
+  // --- BACHILLERATO: BIOLOGÍA ---
+  {
+    codigo: 'CN.B.5.1.1',
+    subnivel: 'bachillerato',
+    area: 'biologia',
+    titulo: 'Biomoléculas orgánicas y funciones celulares vitales',
+    descripcion: 'CN.B.5.1.1. Indagar los patrones de organización de las biomoléculas orgánicas (glúcidos, lípidos, proteínas y ácidos nucleicos) y relacionar su estructura química con las funciones celulares de nutrición, transporte y reproducción genética.',
+    criterioEvaluacion: 'CE.CN.B.5.1. Argumenta el origen de la vida y la importancia de las biomoléculas en el mantenimiento de la célula viva.',
+    indicadorEvaluacion: 'I.CN.B.5.1.1. Explica la importancia de las biomoléculas como base estructural y funcional de los seres vivos.',
+    habilidad: 'Indagar, relacionar y argumentar',
+    conocimiento: 'Biomoléculas (carbohidratos, lípidos, proteínas, ADN/ARN), metabolismo celular',
+    contexto: 'Salud, nutrición balanceada y biotecnología moderna',
+    nivelCognitivo: 'Análisis / Comprensión'
+  },
+
+  // --- BACHILLERATO: FILOSOFÍA ---
+  {
+    codigo: 'CS.F.5.1.1',
+    subnivel: 'bachillerato',
+    area: 'filosofia',
+    titulo: 'El origen del pensamiento filosófico y el paso del mito al logos',
+    descripcion: 'CS.F.5.1.1. Comprender el surgimiento del pensamiento filosófico a partir de la crítica del mito en la Grecia antigua y diferenciar el pensamiento racional del pensamiento mítico-religioso en situaciones de la vida actual.',
+    criterioEvaluacion: 'CE.CS.F.5.1. Contrasta el pensamiento mítico del filosófico a partir del análisis del origen de la razón.',
+    indicadorEvaluacion: 'I.CS.F.5.1.1. Identifica el origen del pensamiento filosófico y diferencia la argumentación racional frente a falacias míticas.',
+    habilidad: 'Comprender, contrastar y diferenciar',
+    conocimiento: 'Mito, logos, razón, presocráticos, argumentación lógica',
+    contexto: 'Pensamiento crítico y deliberación ciudadana contemporánea',
+    nivelCognitivo: 'Análisis / Evaluación'
+  },
+
+  // --- BACHILLERATO: EDUCACIÓN PARA LA CIUDADANÍA ---
+  {
+    codigo: 'CS.EC.5.1.2',
+    subnivel: 'bachillerato',
+    area: 'ciudadania',
+    titulo: 'Derechos humanos fundamentales y su evolución histórica',
+    descripcion: 'CS.EC.5.1.2. Analizar el origen y evolución histórica de los derechos humanos y su consagración en las constituciones modernas, reconociendo la dignidad humana como fundamento de la igualdad y la justicia social.',
+    criterioEvaluacion: 'CE.CS.EC.5.1. Explica la evolución de los derechos humanos y el ejercicio de la ciudadanía en un Estado democrático.',
+    indicadorEvaluacion: 'I.CS.EC.5.1.1. Analiza el origen de los derechos humanos y promueve prácticas de respeto e inclusión en su comunidad.',
+    habilidad: 'Analizar, argumentar y promover',
+    conocimiento: 'Declaración Universal de DDHH, dignidad humana, ciudadanía activa, igualdad',
+    contexto: 'Convivencia escolar, Estado de derecho y garantías ciudadanas',
+    nivelCognitivo: 'Análisis / Valoración'
   },
 
   // --- PREPARATORIA (1ro EGB) ---

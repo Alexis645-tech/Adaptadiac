@@ -131,10 +131,8 @@ function populateDropdowns() {
     <option value="${s.id}" ${s.id === state.currentSubnivel ? 'selected' : ''}>${s.name}</option>
   `).join('');
 
-  // 2. Áreas
-  elements.selectArea.innerHTML = AREAS.map(a => `
-    <option value="${a.id}" ${a.id === state.currentArea ? 'selected' : ''}>${a.icon} ${a.name}</option>
-  `).join('');
+  // 2. Áreas filtradas por subnivel
+  updateAreasOptions();
 
   // 3. Perfiles Cognitivos
   elements.selectPerfil.innerHTML = PERFILES_COGNITIVOS.map(p => `
@@ -143,6 +141,23 @@ function populateDropdowns() {
 
   // Actualizar DCDs para el subnivel y área actual
   updateDCDOptions();
+}
+
+function updateAreasOptions() {
+  // Filtrar áreas permitidas para el subnivel actual
+  const areasDisponibles = AREAS.filter(a => {
+    if (!a.subniveles) return true; // Disponible en todos los subniveles
+    return a.subniveles.includes(state.currentSubnivel);
+  });
+
+  // Si el área seleccionada no está disponible en este subnivel, seleccionar la primera disponible
+  if (!areasDisponibles.some(a => a.id === state.currentArea)) {
+    state.currentArea = areasDisponibles[0].id;
+  }
+
+  elements.selectArea.innerHTML = areasDisponibles.map(a => `
+    <option value="${a.id}" ${a.id === state.currentArea ? 'selected' : ''}>${a.icon} ${a.name}</option>
+  `).join('');
 }
 
 function updateDCDOptions() {
@@ -198,6 +213,7 @@ function setupEventListeners() {
   // Cambio de subnivel
   elements.selectSubnivel.addEventListener('change', (e) => {
     state.currentSubnivel = e.target.value;
+    updateAreasOptions();
     updateDCDOptions();
   });
 
@@ -424,8 +440,9 @@ function cargarCasoPreset(casoId) {
       elements.inputGradoEscolar.value = '3.° Año EGB - Paralelo B';
       elements.selectSubnivel.value = 'elemental';
       state.currentSubnivel = 'elemental';
-      elements.selectArea.value = 'ciencias_naturales';
-      state.currentArea = 'ciencias_naturales';
+      updateAreasOptions();
+      elements.selectArea.value = 'biologia';
+      state.currentArea = 'biologia';
       updateDCDOptions();
       elements.selectDcd.value = 'CN.2.1.4';
       state.currentDcd = DCD_DATABASE.find(d => d.codigo === 'CN.2.1.4');
@@ -440,6 +457,7 @@ function cargarCasoPreset(casoId) {
       elements.inputGradoEscolar.value = '8.° Año EGB - Paralelo A';
       elements.selectSubnivel.value = 'superior';
       state.currentSubnivel = 'superior';
+      updateAreasOptions();
       elements.selectArea.value = 'lengua';
       state.currentArea = 'lengua';
       updateDCDOptions();
@@ -456,6 +474,7 @@ function cargarCasoPreset(casoId) {
       elements.inputGradoEscolar.value = '7.° Año EGB - Paralelo B';
       elements.selectSubnivel.value = 'media';
       state.currentSubnivel = 'media';
+      updateAreasOptions();
       elements.selectArea.value = 'matematica';
       state.currentArea = 'matematica';
       updateDCDOptions();
@@ -472,13 +491,16 @@ function cargarCasoPreset(casoId) {
       elements.inputGradoEscolar.value = '10.° Año EGB - Paralelo A';
       elements.selectSubnivel.value = 'superior';
       state.currentSubnivel = 'superior';
-      elements.selectArea.value = 'ciencias_sociales';
-      state.currentArea = 'ciencias_sociales';
+      updateAreasOptions();
+      elements.selectArea.value = 'historia';
+      state.currentArea = 'historia';
       updateDCDOptions();
+      elements.selectDcd.value = 'CS.4.1.16';
+      state.currentDcd = DCD_DATABASE.find(d => d.codigo === 'CS.4.1.16');
       elements.selectPerfil.value = 'altas_capacidades';
       seleccionarGrado(1);
       elements.selectApoyo.value = 'Bajo';
-      elements.textareaObs.value = 'Propuesta de proyecto de investigación autónomo sobre políticas públicas y derechos humanos.';
+      elements.textareaObs.value = 'Propuesta de proyecto de investigación autónomo sobre procesos de independencia y pensamiento libertario.';
       break;
   }
 

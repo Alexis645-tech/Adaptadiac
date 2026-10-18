@@ -98,9 +98,24 @@ function generarDCDAdaptada(dcd, perfil, grado) {
   } else if (dcd.area === 'lengua') {
     textoDesagregado = `Reconocer la idea central y expresar significados a través de representaciones orales, gráficas o dramatizadas con apoyo de pictogramas a partir de textos breves leídos con mediador (Base funcional de ${dcd.codigo}).`;
     justificacionGrado3 = `Se reduce la exigencia de decodificación y escritura alfabética formal, priorizando la comprensión de significados y la comunicación oral/icónica.`;
-  } else if (dcd.area === 'ciencias_naturales') {
-    textoDesagregado = `Identificar y clasificar elementos de la naturaleza de su entorno inmediato mediante observación directa y manipulación guiada de muestras físicas (Base funcional de ${dcd.codigo}).`;
-    justificacionGrado3 = `Se prioriza el reconocimiento perceptivo y la descripción funcional de los seres vivos frente a la taxonomía abstracta y memorización de organelos.`;
+  } else if (dcd.area === 'biologia') {
+    textoDesagregado = `Identificar las características esenciales de los seres vivos y biomoléculas mediante observación directa y modelos manipulativos (Base funcional de ${dcd.codigo}).`;
+    justificacionGrado3 = `Se prioriza el reconocimiento funcional y descriptivo de la materia viva frente a la nomenclatura bioquímica compleja.`;
+  } else if (dcd.area === 'fisica') {
+    textoDesagregado = `Experimentar y describir nociones perceptivas de movimiento, velocidad y fuerza mediante trayectorias físicas reales y simuladores visuales (Base funcional de ${dcd.codigo}).`;
+    justificacionGrado3 = `Se prioriza la intuición física cualitativa y el movimiento perceptible frente a la deducción vectorial y algebraica abstracta.`;
+  } else if (dcd.area === 'quimica') {
+    textoDesagregado = `Reconocer materiales, elementos cotidianos y cambios visibles de la materia con maquetas y modelos atómicos táctiles (Base funcional de ${dcd.codigo}).`;
+    justificacionGrado3 = `Se prioriza la clasificación sensorial de sustancias y mezclas sobre la configuración cuántica y balanceo estequiométrico.`;
+  } else if (dcd.area === 'historia') {
+    textoDesagregado = `Identificar acontecimientos históricos destacados y aportes culturales a través de líneas de tiempo ilustradas, relatos y personajes representativos (Base funcional de ${dcd.codigo}).`;
+    justificacionGrado3 = `Se prioriza la secuencia cronológica vivencial y el legado cultural frente al análisis historiográfico denso.`;
+  } else if (dcd.area === 'filosofia') {
+    textoDesagregado = `Diferenciar explicaciones míticas de explicaciones lógicas mediante dilemas morales sencillos y debates guiados con apoyo gráfico (Base funcional de ${dcd.codigo}).`;
+    justificacionGrado3 = `Se estimula la reflexión crítica y la argumentación básica sin requerir tratados ontológicos complejos.`;
+  } else if (dcd.area === 'ciudadania') {
+    textoDesagregado = `Identificar normas de convivencia, derechos fundamentales y deberes en el entorno escolar y comunitario con tarjetas ilustradas (Base funcional de ${dcd.codigo}).`;
+    justificacionGrado3 = `Se fortalece la práctica cívica cotidiana y la inclusión comunitaria por encima de la teoría constitucional abstracta.`;
   } else {
     textoDesagregado = `Identificar nociones básicas y aspectos esenciales del contenido a través de imágenes, relatos orales y dramatizaciones guiadas (Base funcional de ${dcd.codigo}).`;
     justificacionGrado3 = `Se prioriza la noción vivencial y la relación con la cotidianidad del estudiante, reduciendo la densidad teórica.`;
@@ -245,11 +260,23 @@ function obtenerActividadConcreta(dcd, perfil) {
   if (dcd.area === 'lengua') {
     return 'Manipulación de tarjetas con letras en relieve, cajas de arena sensorial para trazos o dramatización física de las secuencias de una narración con títeres.';
   }
-  if (dcd.area === 'ciencias_naturales') {
-    return 'Observación y tacto directo de hojas, muestras biológicas seguras, huesos de utilería plásticos o modelos 3D desmontables de esqueleto.';
+  if (dcd.area === 'biologia') {
+    return 'Observación de modelos 3D de células, ensamblaje de maquetas táctiles de biomoléculas (plastilina/esferas) o manipulación guiada de muestras botánicas y óseas seguras.';
   }
-  if (dcd.area === 'ciencias_sociales') {
-    return 'Dramatización vivencial de roles comunitarios o modelado en plastilina de relieves geográficos (montañas, valles, ríos).';
+  if (dcd.area === 'fisica') {
+    return 'Experimentos directos con carritos de baja fricción, planos inclinados con cronómetro táctil, balanzas y resortes para sentir la aceleración y la inercia.';
+  }
+  if (dcd.area === 'quimica') {
+    return 'Manipulación de esferas y varillas para construir modelos moleculares tridimensionales de enlaces, y ensayos sensoriales seguros de solubilidad y cambios de estado.';
+  }
+  if (dcd.area === 'historia') {
+    return 'Disfraz o dramatización vivencial de personajes históricos, manipulación de réplicas de artefactos y colocación física de tarjetas en una línea de tiempo gigante en el suelo.';
+  }
+  if (dcd.area === 'filosofia') {
+    return 'Juego de roles de la "asamblea socrática", clasificación física de tarjetas de "Mito vs. Razón" y uso de balanza de dos platos para sopesar argumentos éticos.';
+  }
+  if (dcd.area === 'ciudadania') {
+    return 'Simulación de votación democrática con urna real, diseño de carteles participativos y asignación de roles de mediación de conflictos en el aula.';
   }
   return 'Exploración con objetos tridimensionales y texturas variadas relacionadas con el tema.';
 }
@@ -261,8 +288,23 @@ function obtenerActividadPictorica(dcd, perfil) {
   if (dcd.area === 'lengua') {
     return 'Creación de un cómic o tira gráfica secuencial de 3 a 4 viñetas ilustrando el inicio, nudo y desenlace antes de redactar el texto.';
   }
-  if (dcd.area === 'ciencias_naturales') {
-    return 'Clasificación de láminas ilustradas en dos columnas visuales (Vertebrados con dibujo de columna roja vs. Invertebrados con silueta punteada).';
+  if (dcd.area === 'biologia') {
+    return 'Completación de diagramas rotulados con código de color (núcleo en azul, membrana en amarillo) e infografías ilustradas de los reinos biológicos.';
+  }
+  if (dcd.area === 'fisica') {
+    return 'Trazado guiado de gráficos posición-tiempo y vectores de velocidad utilizando flechas de colores contrastantes y simuladores virtuales interactivos (PhET).';
+  }
+  if (dcd.area === 'quimica') {
+    return 'Diagramación de estructuras de Lewis ilustradas con puntos de colores para electrones y esquemas visuales de la tabla periódica dividida por familias cromáticas.';
+  }
+  if (dcd.area === 'historia') {
+    return 'Construcción de un mural gráfico cronológico ilustrado con hitos y causas-consecuencias en flechas de color.';
+  }
+  if (dcd.area === 'filosofia') {
+    return 'Mapas conceptuales con viñetas humorísticas o diagramas de Venn comparando el mito versus el pensamiento racional.';
+  }
+  if (dcd.area === 'ciudadania') {
+    return 'Infografía visual de los derechos fundamentales con pictogramas y mapa de responsabilidades ciudadanas en la comunidad.';
   }
   return 'Diseño de un mapa mental visual con iconos simples y flechas conectivas de causa-efecto.';
 }
